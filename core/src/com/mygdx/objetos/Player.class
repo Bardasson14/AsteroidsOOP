@@ -1,0 +1,16 @@
+package com.mygdx.objetos;
+
+//import com.mygdx.asteroids.objetos.DynamicGameObject;
+
+public class Player extends DynamicGameObject{
+
+    //Construtor da classe
+    public Player(int x, int y, World world){
+    
+        super(y, x, world);
+
+    }
+
+    
+
+}

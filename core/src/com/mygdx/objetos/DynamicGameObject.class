@@ -1,0 +1,49 @@
+package com.mygdx.objetos;
+
+import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.math.Vector2;
+
+// Esta classe é para qualquer objeto com movimentação
+public class DynamicGameObject{
+
+    //Vector2 = classe de manipulação de vetores 2x2
+    public vector2 pos;     //posição
+
+    //Objetos Box2D precisam estar conectados a um mundo
+    public World world;
+
+    
+    //Construtor da classe
+    public DynamicGameObject(in x, int y, World World){
+
+        pos = new vector2(x, y);
+        this.world = world;
+
+    }
+
+    //Bota o objeto na posição indicada
+    public void set_position(int x_axis, int y_axix){
+
+        this.pos.x = x_axis;
+        this.pos.y = y_axix;
+
+    }
+
+    //Move o objeto no eixo X
+    public void move_x(int speed){
+
+        this.pos.x += speed * Gdx.graphics.getDeltaTime();
+
+    }
+
+    //Move o objeto no eixo y
+    public void move_y(int speed){
+
+        this.pos.y += speed * Gdx.graphics.getDeltaTime();
+
+    }
+
+}
