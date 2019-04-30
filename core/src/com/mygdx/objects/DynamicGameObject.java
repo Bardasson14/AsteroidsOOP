@@ -1,8 +1,6 @@
-package com.mygdx.objetos;
+package com.mygdx.objects;
 
-import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.math.Vector2;
 
@@ -10,25 +8,25 @@ import com.badlogic.gdx.math.Vector2;
 public class DynamicGameObject{
 
     //Vector2 = classe de manipulação de vetores 2x2
-    public vector2 pos;     //posição
+    public Vector2 pos;     //posição
 
     //Objetos Box2D precisam estar conectados a um mundo
     public World world;
 
     
     //Construtor da classe
-    public DynamicGameObject(in x, int y, World World){
+    public DynamicGameObject(int x, int y, World world){
 
-        pos = new vector2(x, y);
+        pos = new Vector2(x, y);
         this.world = world;
 
     }
 
     //Bota o objeto na posição indicada
-    public void set_position(int x_axis, int y_axix){
+    public void set_position(int x, int y){
 
-        this.pos.x = x_axis;
-        this.pos.y = y_axix;
+        this.pos.x = x;
+        this.pos.y = y;
 
     }
 
