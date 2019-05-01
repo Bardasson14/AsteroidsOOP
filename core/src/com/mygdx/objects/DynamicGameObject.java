@@ -86,20 +86,32 @@ public class DynamicGameObject{
     	if(novaRotacao < 0)	this.rotacao += 360;
     	
     	sprite.setRotation(this.rotacao);
-    	dir.set(-1 * MathUtils.sin(this.rotacao), MathUtils.cos(this.rotacao));
-    	System.out.println(this.rotacao);
-    	System.out.println(MathUtils.sin(this.rotacao));
+    	
+    	float radianos = (this.rotacao * 2 * MathUtils.PI)/360.f;
+    	
+    	dir.set(-1 * MathUtils.sin(radianos), MathUtils.cos(radianos));
+    	
+    	System.out.println(radianos);
+    	//System.out.println(MathUtils.sin(radianos));
 
     	
     }
     
-    public void accelerate(Vector2 speed, Vector2 acceleration) {
+    public void accelerate(Vector2 speed, Vector2 acceleration, int MAX_SPEED) {
     	
-    	speed.x = this.dir.x * acceleration.x;
-    	speed.y = this.dir.y * acceleration.y;
+    	speed.x += this.dir.x * acceleration.x;
+    	speed.y += this.dir.y * acceleration.y;
     	
     	System.out.println(rotacao);
 
+    	
+    }
+    
+    //A nave perde velocidade quando não está acelerando
+    public void looseSpeed(Vector2 speed, Vector2 acceleration) {
+    	
+    	if(speed.x > acceleration.x)	speed.x -= this.dir.x * acceleration.x;
+    	if(speed.x > acceleration.x)	speed.y -= this.dir.y * acceleration.y;
     	
     }
     

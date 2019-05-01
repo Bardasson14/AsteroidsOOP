@@ -11,7 +11,7 @@ public class Player extends DynamicGameObject{
 
 	//int SPEED = 300;
 	Vector2 Speed = new Vector2();
-	//int MAX_SPEED = 500;
+	int MAX_SPEED = 400;
 	//int ACCELERATION = 10;
 	Vector2 ACCELERATION = new Vector2(50, 50);
 	
@@ -28,27 +28,27 @@ public class Player extends DynamicGameObject{
 	
 		if(Gdx.input.isKeyPressed(Keys.SPACE)) {
 			
-			accelerate(Speed, ACCELERATION);
-			System.out.println("foi");
+			accelerate(Speed, ACCELERATION, MAX_SPEED);
 			
 		}
 		
 		
 		if(Gdx.input.isKeyPressed(Keys.D)) {
 			
-			rotacao -= 1;
+			rotacao -= 4;
 			rotaciona(rotacao);
 			
 		}
 		
 		if(Gdx.input.isKeyPressed(Keys.A)) {
 			
-			rotacao += 1;
+			rotacao += 4;
 			rotaciona(rotacao);
 			
 		}
 		
 		move_xy(Speed);
+		looseSpeed(Speed, ACCELERATION);
 		
 		//se o sprite já saiu da tela pela direita, ele aparece do outro lado			
 		if(pos.x > WINDOWS_WIDTH)	pos.x = 0 - spriteWidth;

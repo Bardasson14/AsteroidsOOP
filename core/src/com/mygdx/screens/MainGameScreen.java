@@ -35,9 +35,12 @@ public class MainGameScreen implements Screen {
   Texture img = new Texture("imgs/SpaceShip24x24.png");
   
   Sprite sprite = new Sprite(img);
+
   
   // Instânciando player
   Player player = new Player(50, 50, world, sprite);
+  
+  Player player2 = new Player(500, 300, world, sprite);
 
   // Tamanho da janela
   int WINDOWS_WIDTH = Gdx.graphics.getWidth();
@@ -65,11 +68,15 @@ public class MainGameScreen implements Screen {
 
     player.move();
     
+    
     batch.begin();
     //game.batch.begin();
     //game.batch.draw(sprite, player.pos.x, player.pos.y);
-    sprite.draw(batch);
+    player.sprite.draw(batch);
+    player2.sprite.draw(batch);
     batch.end();
+    
+    player.collided(player2);
     //game.batch.end();
 
   }
