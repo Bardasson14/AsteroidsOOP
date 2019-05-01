@@ -2,12 +2,23 @@ package com.mygdx.objects;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.physics.box2d.Body;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 // Esta classe é para qualquer objeto com movimentação
 public class DynamicGameObject{
 
+	BodyDef bodydef = new BodyDef();
+
+	Body body;
+	
+	
+	
     //Vector2 = classe de manipulação de vetores 2x2
     public Vector2 pos;     //posição
     
@@ -23,6 +34,9 @@ public class DynamicGameObject{
     //Sprite width and height
     public float spriteWidth;
     public float spriteHeight;
+    
+    //Direction
+    public Vector2 dir = new Vector2();
 
 	//Constantes de tamanho da tela
 	int WINDOWS_WIDTH = Gdx.graphics.getWidth();
@@ -37,11 +51,17 @@ public class DynamicGameObject{
         sprite.setPosition(x, y);
         
         this.world = world;
-        this.sprite = sprite;
+        this.sprite = new Sprite(sprite);
         
         this.spriteWidth = this.sprite.getWidth();
         this.spriteHeight = this.sprite.getHeight();
-
+        
+    	bodydef.type = BodyType.DynamicBody;
+    	bodydef.position.set(x, y);
+    	
+    	dir.set(MathUtils.sin(this.rotacao), MathUtils.cos(this.rotacao));
+    	
+    	body = world.createBody(bodydef);
     }
 
     //Bota o objeto na posição indicada
@@ -52,25 +72,43 @@ public class DynamicGameObject{
 
     }
 
-    //Move o objeto no eixo X
-    public void move_x(int speed){
+    //Move o objeto nos dois eixos
+    public void move_xy(Vector2 speed){
 
-        this.pos.x += speed * Gdx.graphics.getDeltaTime();
-        sprite.setPosition(this.pos.x, this.pos.y);
-
-    }
-
-    //Move o objeto no eixo y
-    public void move_y(int speed){
-
-        this.pos.y += speed * Gdx.graphics.getDeltaTime();
+        this.pos.mulAdd(speed, Gdx.graphics.getDeltaTime());
         sprite.setPosition(this.pos.x, this.pos.y);
 
     }
     
-    public void rotaciona(float rotacao) {
+    public void rotaciona(float novaRotacao) {
     	
-    	sprite.setRotation(rotacao);
+    	if(novaRotacao > 360) this.rotacao -= 360;
+    	if(novaRotacao < 0)	this.rotacao += 360;
+    	
+    	sprite.setRotation(this.rotacao);
+    	dir.set(-1 * MathUtils.sin(this.rotacao), MathUtils.cos(this.rotacao));
+    	System.out.println(this.rotacao);
+    	System.out.println(MathUtils.sin(this.rotacao));
+
+    	
+    }
+    
+    public void accelerate(Vector2 speed, Vector2 acceleration) {
+    	
+    	speed.x = this.dir.x * acceleration.x;
+    	speed.y = this.dir.y * acceleration.y;
+    	
+    	System.out.println(rotacao);
+
+    	
+    }
+    
+    public boolean collided(DynamicGameObject otherObject) {
+    	
+    	Rectangle rectangle1 = this.sprite.getBoundingRectangle();
+    	Rectangle rectangle2 = otherObject.sprite.getBoundingRectangle();
+
+    	return rectangle1.overlaps(rectangle2);
     	
     }
 
