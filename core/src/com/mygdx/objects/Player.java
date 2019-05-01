@@ -8,10 +8,12 @@ import com.mygdx.objects.DynamicGameObject;
 
 public class Player extends DynamicGameObject{
 
-	int SPEED = 200;
+	int SPEED = 0;
+	int MAX_SPEED = 700;
+	int 
 	
     // CONSTRUTOR DA CLASSE
-    public Player(int x, int y, World world, Sprite sprite){
+    Player(int x, int y, World world, Sprite sprite){
     
         super(x, y, world, sprite);
 
