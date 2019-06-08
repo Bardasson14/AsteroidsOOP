@@ -42,10 +42,8 @@ public class Player extends DynamicGameObject{
 			this.rotaciona(rotacao);
 		}
 
-		
 		move_xy(Speed);
 		looseSpeed(Speed, ACCELERATION);
-		player_shoot();
 		//se o sprite já saiu da tela pela direita, ele aparece do outro lado			
 		if(pos.x > WINDOWS_WIDTH)	pos.x = 0 - spriteWidth;
 
@@ -60,13 +58,14 @@ public class Player extends DynamicGameObject{
 			
 	}
 	
-	public void player_shoot(){
+	public void player_shoot(Player player){
 		Texture img2 = new Texture("imgs/shoot.png");
     	Sprite shoot_sprite = new Sprite(img2);
 		if (Gdx.input.isKeyPressed(Keys.K)){
-			Shoot shoot = new Shoot(this, shoot_sprite);
-			this.shoots.add(shoot);	
+			Shoot shoot = new Shoot(player, shoot_sprite);
+			player.shoots.add(shoot);	
 		}
 		
 	}
+    
 }

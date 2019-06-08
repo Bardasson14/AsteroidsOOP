@@ -3,6 +3,7 @@ package com.mygdx.screens;
 //import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -66,11 +67,12 @@ public class MainGameScreen implements Screen {
     Gdx.gl.glClearColor(0, 0, 0, 0);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-    Vector2 SHOOT_SPEED = new Vector2(100*Gdx.graphics.getDeltaTime(), 100*Gdx.graphics.getDeltaTime());
+    
+
     player.move();
     for (Shoot shoot: player.shoots)
-      shoot.move_xy(SHOOT_SPEED);
-
+      shoot.moveShoot(shoot);
+    player.player_shoot(player);
     batch.begin();
     //game.batch.begin();
     //game.batch.draw(sprite, player.pos.x, player.pos.y);
