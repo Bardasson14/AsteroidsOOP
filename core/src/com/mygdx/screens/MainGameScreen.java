@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.objects.Player;
+import com.mygdx.objects.Shoot;
 
 import com.mygdx.asteroids.AsteroidsGame;
 
@@ -20,7 +21,8 @@ public class MainGameScreen implements Screen {
   AsteroidsGame game;
 
   SpriteBatch batch = new SpriteBatch();
-  
+  private float timeSeconds = 0;
+  private float period = 1;
   /* Criei uma instância da classe World, esta é necessária para o uso de Box2D
   * Param:
   * Vector2(a, b):
@@ -30,21 +32,19 @@ public class MainGameScreen implements Screen {
   * indica se o programador quer que objetos "durmam", isto reduz uso da cpu
   */
   World world = new World(new Vector2(0, 0), true);
-
   // Criando imagens
   Texture img = new Texture("imgs/SpaceShip24x24.png");
-  
   Sprite sprite = new Sprite(img);
-
+ 
   
-  // Instânciando player
-  Player player = new Player(50, 50, world, sprite);
+  // Instanciando player
+  Player player = new Player(new Vector2(50, 50), world, sprite);
   
-  Player player2 = new Player(500, 300, world, sprite);
+  //Player player2 = new Player(500, 300, world, sprite);
 
   // Tamanho da janela
   int WINDOWS_WIDTH = Gdx.graphics.getWidth();
-  int WINDOWS_HEIGH = Gdx.graphics.getHeight();
+  int WINDOWS_HEIGHT = Gdx.graphics.getHeight();
   
   // CONSTRUTOR DA CLASSE
   public MainGameScreen(AsteroidsGame game) {
@@ -66,17 +66,24 @@ public class MainGameScreen implements Screen {
     Gdx.gl.glClearColor(0, 0, 0, 0);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+    Vector2 SHOOT_SPEED = new Vector2(100*Gdx.graphics.getDeltaTime(), 100*Gdx.graphics.getDeltaTime());
     player.move();
-    
-    
+    for (Shoot shoot: player.shoots)
+      shoot.move_xy(SHOOT_SPEED);
+
     batch.begin();
     //game.batch.begin();
     //game.batch.draw(sprite, player.pos.x, player.pos.y);
     player.sprite.draw(batch);
-    player2.sprite.draw(batch);
+    //player2.sprite.draw(batch);
+		
+    for (Shoot shoot: player.shoots){
+      shoot.sprite.draw(batch);
+    }
+
     batch.end();
     
-    player.collided(player2);
+    //player.collided(player2);
     //game.batch.end();
 
   }
@@ -84,8 +91,6 @@ public class MainGameScreen implements Screen {
   @Override
   public void resize(int width, int height) {
 
-	  
-	
   }
 
   @Override
