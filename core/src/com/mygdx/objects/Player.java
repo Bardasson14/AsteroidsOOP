@@ -45,16 +45,16 @@ public class Player extends DynamicGameObject{
 		move_xy(Speed);
 		looseSpeed(Speed, ACCELERATION);
 		//se o sprite já saiu da tela pela direita, ele aparece do outro lado			
-		if(pos.x > WINDOWS_WIDTH)	pos.x = 0 - spriteWidth;
+		if(this.pos.x > WINDOWS_WIDTH)	this.pos.x = 0 - spriteWidth;
 
 		//se o sprite já saiu da tela pela esquerda, ele aparece do outro lado
-		if((pos.x + spriteWidth) < 0) pos.x = WINDOWS_WIDTH;
+		if((this.pos.x + spriteWidth) < 0) this.pos.x = WINDOWS_WIDTH;
 				
 		//se o sprite já saiu da tela para cima, aparece em baixo
-		if(pos.y > WINDOWS_HEIGHT) pos.y = 0 - spriteHeight ;
+		if(this.pos.y > WINDOWS_HEIGHT) this.pos.y = 0 - spriteHeight ;
 
 		//se o sprite já saiu da tela para baixo, aparece em cima
-		if((pos.y + spriteHeight) < 0) pos.y = WINDOWS_HEIGHT;
+		if((this.pos.y + spriteHeight) < 0) this.pos.y = WINDOWS_HEIGHT;
 			
 	}
 	
@@ -62,7 +62,10 @@ public class Player extends DynamicGameObject{
 		Texture img2 = new Texture("imgs/shoot.png");
     	Sprite shoot_sprite = new Sprite(img2);
 		if (Gdx.input.isKeyPressed(Keys.K)){
-			Shoot shoot = new Shoot(player, shoot_sprite);
+			float p1 = player.pos.x;
+			float p2 = player.pos.y;
+			Vector2 vel = new Vector2(p1,p2);
+			Shoot shoot = new Shoot(vel, world, shoot_sprite);
 			player.shoots.add(shoot);	
 		}
 		

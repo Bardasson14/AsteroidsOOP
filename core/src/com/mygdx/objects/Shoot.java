@@ -10,8 +10,8 @@ public class Shoot extends DynamicGameObject {
     
     Vector2 SHOOT_SPEED = new Vector2(100*Gdx.graphics.getDeltaTime(), 100*Gdx.graphics.getDeltaTime());
     
-    public Shoot(Player player, Sprite sprite) {
-        super(player.pos, player.world, sprite);
+    public Shoot(Vector2 player, World world,Sprite sprite) {
+        super(player , world, sprite);
         //this.dir.set(player.dir);
         //this.rotaciona(player.rotacao);
     }
