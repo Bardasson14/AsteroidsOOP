@@ -17,6 +17,8 @@ public class Player extends DynamicGameObject{
 	//int SPEED = 300;
 	Vector2 Speed = new Vector2();
 	int MAX_SPEED = 400;
+	public float shoot_delay = 0.5f;
+    public float shoot_tick = shoot_delay;
 	//int ACCELERATION = 10;
 	Vector2 ACCELERATION = new Vector2(50, 50);
 	
@@ -62,22 +64,23 @@ public class Player extends DynamicGameObject{
 	public void player_shoot(Player player){
 		Texture img2 = new Texture("imgs/shoot.png");
 		Sprite shoot_sprite = new Sprite(img2);
-		if (Gdx.input.isKeyPressed(Keys.K)){
+		if (Gdx.input.isKeyPressed(Keys.K) && player.shoot_tick > player.shoot_delay){
 			int dir_x=1, dir_y=1;
 			float p1 = player.pos.x;
 			float p2 = player.pos.y;
 			Vector2 vel = new Vector2(p1+player.spriteWidth/2,p2+player.spriteHeight/2);
 			Shoot shoot = new Shoot(player,vel, world, shoot_sprite);
-			if (shoot.rotacao >= 0 && shoot.rotacao<=180) dir_x = -1;
-            if (shoot.rotacao >= 90 && shoot.rotacao<=270) dir_y = -1;
+			//if (shoot.rotacao >= 0 && shoot.rotacao<=180) dir_x = -1;
+            //if (shoot.rotacao >= 90 && shoot.rotacao<=270) dir_y = -1;
             //System.out.println("dir_x = ", dir;
             shoot.speed_x *= dir_x;
 			shoot.speed_y *= dir_y;
 			float radianos = (shoot.rotacao * 2 * MathUtils.PI)/360.f;
-			shoot.SHOOT_SPEED = new Vector2(shoot.speed_x*MathUtils.cos(radianos), shoot.speed_y*MathUtils.sin(radianos)*-1);
+			shoot.SHOOT_SPEED = new Vector2(-shoot.speed_x*MathUtils.sin(radianos), -shoot.speed_y*MathUtils.cos(radianos)*-1);
 			System.out.println(shoot.speed_x*MathUtils.sin(radianos));
 			
 			player.shoots.add(shoot);	
+			player.shoot_tick = 0f;
 		}
 		
 	}

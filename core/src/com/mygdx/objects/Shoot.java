@@ -13,6 +13,7 @@ public class Shoot extends DynamicGameObject {
     float speed_y = 200;
     Vector2 SHOOT_SPEED = new Vector2(1000*Gdx.graphics.getDeltaTime(), 100*Gdx.graphics.getDeltaTime());
 
+    
 
     public Shoot(Player player,Vector2 positions, World world,Sprite sprite) {
         super(positions , world, sprite);

@@ -70,6 +70,8 @@ public class MainGameScreen implements Screen {
     
 
     player.move();
+    player.shoot_tick += Gdx.graphics.getDeltaTime();
+
     for (Shoot shoot: player.shoots)
       shoot.moveShoot(shoot);
     player.player_shoot(player);
