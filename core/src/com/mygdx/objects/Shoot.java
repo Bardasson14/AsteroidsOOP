@@ -22,7 +22,7 @@ public class Shoot extends DynamicGameObject {
     }
 
 
-	public void moveShoot(Shoot shoot){
+	public void move(Shoot shoot){
         
 
         //PROBLEMA
