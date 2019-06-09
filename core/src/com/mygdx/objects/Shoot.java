@@ -16,15 +16,11 @@ public class Shoot extends DynamicGameObject {
         //this.rotaciona(player.rotacao);
     }
 
-
 	public void moveShoot(Shoot shoot){
-    
         //PROBLEMA
         shoot.pos.x += SHOOT_SPEED.x * Gdx.graphics.getDeltaTime();
         shoot.pos.y += SHOOT_SPEED.y * Gdx.graphics.getDeltaTime();
         //shoot.pos.mulAdd(SHOOT_SPEED, Gdx.graphics.getDeltaTime());
         shoot.sprite.setPosition(shoot.pos.x, shoot.pos.y);	
-
     }
-
 }

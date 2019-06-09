@@ -65,7 +65,6 @@ public class Player extends DynamicGameObject{
 			Shoot shoot = new Shoot(player, shoot_sprite);
 			player.shoots.add(shoot);	
 		}
-		
 	}
     
 }
