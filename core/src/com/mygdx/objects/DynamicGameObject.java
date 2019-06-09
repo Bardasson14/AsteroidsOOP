@@ -14,11 +14,8 @@ import com.badlogic.gdx.math.Vector2;
 public class DynamicGameObject{
 
 	BodyDef bodydef = new BodyDef();
-
 	Body body;
-	
-	
-	
+
     //Vector2 = classe de manipulação de vetores 2x2
     public Vector2 pos;     //posição
     
@@ -42,13 +39,11 @@ public class DynamicGameObject{
 	int WINDOWS_WIDTH = Gdx.graphics.getWidth();
 	int WINDOWS_HEIGHT = Gdx.graphics.getHeight();
 	
-	
-    
     //Construtor da classe
-    public DynamicGameObject(int x, int y, World world, Sprite sprite){
-
-        pos = new Vector2(x, y);
-        sprite.setPosition(x, y);
+    public DynamicGameObject(Vector2 pos, World world, Sprite sprite){
+    
+        this.pos = pos;
+        sprite.setPosition(this.pos.x, this.pos.y);
         
         this.world = world;
         this.sprite = new Sprite(sprite);
@@ -57,9 +52,9 @@ public class DynamicGameObject{
         this.spriteHeight = this.sprite.getHeight();
         
     	bodydef.type = BodyType.DynamicBody;
-    	bodydef.position.set(x, y);
+    	bodydef.position.set(this.pos.x, this.pos.y);
     	
-    	dir.set(MathUtils.sin(this.rotacao), MathUtils.cos(this.rotacao));
+    	dir.set(-MathUtils.sin(this.rotacao), MathUtils.cos(this.rotacao));
     	
     	body = world.createBody(bodydef);
     }
@@ -84,14 +79,10 @@ public class DynamicGameObject{
     	
     	if(novaRotacao > 360) this.rotacao -= 360;
     	if(novaRotacao < 0)	this.rotacao += 360;
-    	
-    	sprite.setRotation(this.rotacao);
-    	
+        sprite.setRotation(this.rotacao);
     	float radianos = (this.rotacao * 2 * MathUtils.PI)/360.f;
-    	
     	dir.set(-1 * MathUtils.sin(radianos), MathUtils.cos(radianos));
     	
-    	System.out.println(radianos);
     	//System.out.println(MathUtils.sin(radianos));
 
     	
@@ -99,10 +90,10 @@ public class DynamicGameObject{
     
     public void accelerate(Vector2 speed, Vector2 acceleration, int MAX_SPEED) {
     	
-    	speed.x += this.dir.x * acceleration.x;
-    	speed.y += this.dir.y * acceleration.y;
+    	speed.x += this.dir.x * acceleration.x  * Gdx.graphics.getDeltaTime();
+    	speed.y += this.dir.y * acceleration.y  * Gdx.graphics.getDeltaTime();
     	
-    	System.out.println(rotacao);
+    	//System.out.println(rotacao);
 
     	
     }
