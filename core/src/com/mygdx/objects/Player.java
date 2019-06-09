@@ -14,13 +14,11 @@ import com.mygdx.objects.DynamicGameObject;
 
 public class Player extends DynamicGameObject{
 
-	//int SPEED = 300;
 	Vector2 Speed = new Vector2();
-	float MAX_SPEED = 300;
+	float MAX_SPEED = 240;
 	public float shoot_delay = 0.5f;
     public float shoot_tick = shoot_delay;
-	//int ACCELERATION = 10;
-	Vector2 ACCELERATION = new Vector2(200, 200);
+	Vector2 ACCELERATION = new Vector2(250, 250);
 	
 	public List<Shoot> shoots = new ArrayList<Shoot>();
     // CONSTRUTOR DA CLASSE
