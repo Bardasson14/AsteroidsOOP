@@ -66,7 +66,16 @@ public class MainGameScreen implements Screen {
 
     Gdx.gl.glClearColor(0, 0, 0, 0);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+<<<<<<< HEAD
     player.move();
+=======
+
+    
+
+    player.move();
+    player.shoot_tick += Gdx.graphics.getDeltaTime();
+
+>>>>>>> amaral
     for (Shoot shoot: player.shoots)
       shoot.moveShoot(shoot);
     player.player_shoot(player);
