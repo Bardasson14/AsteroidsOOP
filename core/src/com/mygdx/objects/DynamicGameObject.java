@@ -71,23 +71,16 @@ public class DynamicGameObject{
 
     //Move o objeto nos dois eixos
     public void move_xy(Vector2 speed){
-
         this.pos.mulAdd(speed, Gdx.graphics.getDeltaTime());
         sprite.setPosition(this.pos.x, this.pos.y);
-
     }
     
     public void rotaciona(float novaRotacao) {
-    	
     	if(novaRotacao > 360) this.rotacao -= 360;
     	if(novaRotacao < 0)	this.rotacao += 360;
         sprite.setRotation(this.rotacao);
     	float radianos = (this.rotacao * 2 * MathUtils.PI)/360.f;
     	dir.set(-1 * MathUtils.sin(radianos), MathUtils.cos(radianos));
-    	
-    	//System.out.println(MathUtils.sin(radianos));
-
-    	
     }
     
     public void accelerate(Vector2 speed, Vector2 acceleration, float MAX_SPEED) {
@@ -97,27 +90,18 @@ public class DynamicGameObject{
         if(speed.x >= MAX_SPEED) speed.x = MAX_SPEED;
         if(speed.y <= -1*MAX_SPEED) speed.y = -1*MAX_SPEED;
         if(speed.y >= MAX_SPEED) speed.y = MAX_SPEED;
-        System.out.println(speed.x);
-
-    	//System.out.println(rotacao);
-
-    	
     }
     
     //A nave perde velocidade quando não está acelerando
     public void looseSpeed(Vector2 speed, Vector2 acceleration) {
-    	
     	if(speed.x > acceleration.x)	speed.x -= this.dir.x * acceleration.x;
     	if(speed.x > acceleration.x)	speed.y -= this.dir.y * acceleration.y;
-    	
     }
     
     public boolean collided(DynamicGameObject otherObject) {
-    	
     	Rectangle rectangle1 = this.sprite.getBoundingRectangle();
     	Rectangle rectangle2 = otherObject.sprite.getBoundingRectangle();
-
-    	return rectangle1.overlaps(rectangle2);
+       	return rectangle1.overlaps(rectangle2);
     	
     }
 
