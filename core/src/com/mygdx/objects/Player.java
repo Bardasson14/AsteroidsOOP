@@ -16,11 +16,11 @@ public class Player extends DynamicGameObject{
 
 	//int SPEED = 300;
 	Vector2 Speed = new Vector2();
-	int MAX_SPEED = 400;
+	float MAX_SPEED = 300;
 	public float shoot_delay = 0.5f;
     public float shoot_tick = shoot_delay;
 	//int ACCELERATION = 10;
-	Vector2 ACCELERATION = new Vector2(50, 50);
+	Vector2 ACCELERATION = new Vector2(200, 200);
 	
 	public List<Shoot> shoots = new ArrayList<Shoot>();
     // CONSTRUTOR DA CLASSE

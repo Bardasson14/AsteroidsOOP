@@ -1,5 +1,7 @@
 package com.mygdx.objects;
 
+import javax.xml.stream.XMLOutputFactory;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -88,11 +90,15 @@ public class DynamicGameObject{
     	
     }
     
-    public void accelerate(Vector2 speed, Vector2 acceleration, int MAX_SPEED) {
-    	
+    public void accelerate(Vector2 speed, Vector2 acceleration, float MAX_SPEED) {
     	speed.x += this.dir.x * acceleration.x  * Gdx.graphics.getDeltaTime();
-    	speed.y += this.dir.y * acceleration.y  * Gdx.graphics.getDeltaTime();
-    	
+        speed.y += this.dir.y * acceleration.y  * Gdx.graphics.getDeltaTime();
+        if(speed.x <= -1*MAX_SPEED) speed.x = -1*MAX_SPEED;
+        if(speed.x >= MAX_SPEED) speed.x = MAX_SPEED;
+        if(speed.y <= -1*MAX_SPEED) speed.y = -1*MAX_SPEED;
+        if(speed.y >= MAX_SPEED) speed.y = MAX_SPEED;
+        System.out.println(speed.x);
+
     	//System.out.println(rotacao);
 
     	
