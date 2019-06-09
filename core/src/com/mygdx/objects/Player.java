@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.objects.DynamicGameObject;
@@ -60,12 +61,22 @@ public class Player extends DynamicGameObject{
 	
 	public void player_shoot(Player player){
 		Texture img2 = new Texture("imgs/shoot.png");
-    	Sprite shoot_sprite = new Sprite(img2);
+		Sprite shoot_sprite = new Sprite(img2);
 		if (Gdx.input.isKeyPressed(Keys.K)){
+			int dir_x=1, dir_y=1;
 			float p1 = player.pos.x;
 			float p2 = player.pos.y;
-			Vector2 vel = new Vector2(p1,p2);
-			Shoot shoot = new Shoot(vel, world, shoot_sprite);
+			Vector2 vel = new Vector2(p1+player.spriteWidth/2,p2+player.spriteHeight/2);
+			Shoot shoot = new Shoot(player,vel, world, shoot_sprite);
+			if (shoot.rotacao >= 0 && shoot.rotacao<=180) dir_x = -1;
+            if (shoot.rotacao >= 90 && shoot.rotacao<=270) dir_y = -1;
+            //System.out.println("dir_x = ", dir;
+            shoot.speed_x *= dir_x;
+			shoot.speed_y *= dir_y;
+			float radianos = (shoot.rotacao * 2 * MathUtils.PI)/360.f;
+			shoot.SHOOT_SPEED = new Vector2(shoot.speed_x*MathUtils.cos(radianos), shoot.speed_y*MathUtils.sin(radianos)*-1);
+			System.out.println(shoot.speed_x*MathUtils.sin(radianos));
+			
 			player.shoots.add(shoot);	
 		}
 		
