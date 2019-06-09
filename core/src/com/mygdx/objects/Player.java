@@ -51,11 +51,7 @@ public class Player extends DynamicGameObject{
 		if(this.pos.x > WINDOWS_WIDTH)	this.pos.x = 0 - spriteWidth;
 
 		//se o sprite já saiu da tela pela esquerda, ele aparece do outro lado
-<<<<<<< HEAD
-		if((pos.x + spriteWidth) < 0) pos.x = WINDOWS_WIDTH;
-=======
 		if((this.pos.x + spriteWidth) < 0) this.pos.x = WINDOWS_WIDTH;
->>>>>>> amaral
 				
 		//se o sprite já saiu da tela para cima, aparece em baixo
 		if(this.pos.y > WINDOWS_HEIGHT) this.pos.y = 0 - spriteHeight ;
@@ -67,13 +63,6 @@ public class Player extends DynamicGameObject{
 	
 	public void player_shoot(Player player){
 		Texture img2 = new Texture("imgs/shoot.png");
-<<<<<<< HEAD
-    	Sprite shoot_sprite = new Sprite(img2);
-		if (Gdx.input.isKeyPressed(Keys.K)){
-			Shoot shoot = new Shoot(player, shoot_sprite);
-			player.shoots.add(shoot);	
-		}
-=======
 		Sprite shoot_sprite = new Sprite(img2);
 		if (Gdx.input.isKeyPressed(Keys.K) && player.shoot_tick > player.shoot_delay){
 			int dir_x=1, dir_y=1;
@@ -94,7 +83,6 @@ public class Player extends DynamicGameObject{
 			player.shoot_tick = 0f;
 		}
 		
->>>>>>> amaral
 	}
     
 }
