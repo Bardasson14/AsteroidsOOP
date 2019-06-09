@@ -11,7 +11,7 @@ public class Shoot extends DynamicGameObject {
 
     float speed_x = 200;
     float speed_y = 200;
-    Vector2 SHOOT_SPEED = new Vector2(1000*Gdx.graphics.getDeltaTime(), 100*Gdx.graphics.getDeltaTime());
+    Vector2 SHOOT_SPEED = new Vector2(1000*Gdx.graphics.getDeltaTime(), 1000*Gdx.graphics.getDeltaTime());
 
     
 
@@ -22,7 +22,7 @@ public class Shoot extends DynamicGameObject {
     }
 
 
-	public void moveShoot(Shoot shoot){
+	public void move(Shoot shoot){
         
 
         //PROBLEMA
