@@ -49,7 +49,6 @@ public class MainGameScreen implements Screen {
 
   //Criando diferentes tipos de asteróides
   Sprite sprites[] = new Sprite[3];
-  
   Texture imgPeq = new Texture("imgs/ast30x30.png");
   sprites[0] = new Sprite(imgPeq);
   Texture imgMed = new Texture("imgs/ast65x66.png");
