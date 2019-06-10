@@ -34,7 +34,7 @@ public class Asteroids extends DynamicGameObject{
             int random_x = r.nextInt(2);
             int dir_x = 1;
             float x = 0;
-            System.out.println(random_x);
+            //System.out.println(random_x);
             if (random_x == 1) {
               x = WINDOWS_HEIGHT + spriteArray[asteroidSelection].getWidth()*4;
               dir_x = -1;

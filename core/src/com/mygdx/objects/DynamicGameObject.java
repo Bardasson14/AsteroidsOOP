@@ -108,10 +108,10 @@ public class DynamicGameObject{
         }
     }
     
-    public boolean collided(DynamicGameObject otherObject) {
-    	Rectangle rectangle1 = this.sprite.getBoundingRectangle();
+    public boolean collidedAsteroid(DynamicGameObject otherObject) {
+    	Rectangle rectangle = this.sprite.getBoundingRectangle();
     	Rectangle rectangle2 = otherObject.sprite.getBoundingRectangle();
-       	return rectangle1.overlaps(rectangle2);
+       	return rectangle.overlaps(rectangle2);
     	
     }
 

@@ -107,11 +107,15 @@ public class MainGameScreen implements Screen {
     //game.batch.draw(sprite, player.pos.x, player.pos.y);
     player.sprite.draw(batch);
     //player2.sprite.draw(batch);
-    for (Asteroids asteroid: asteroids)
-      asteroid.sprite.draw(batch);
-    for (Shoot shoot: player.shoots){
-      shoot.sprite.draw(batch);
+    for (Asteroids asteroid: asteroids){
+     // if (asteroid.pos.x < -asteroid.spriteWidth || asteroid.pos.x > (WINDOWS_WIDTH + asteroid.spriteWidth*4)|| asteroid.pos.y < asteroid.spriteWidth || asteroid.pos.y>(WINDOWS_WIDTH + asteroid.spriteHeight))
+        //asteroids.remove(asteroid);
+      /*else*/ asteroid.sprite.draw(batch);
+      
     }
+      for (Shoot shoot: player.shoots){ 
+        shoot.sprite.draw(batch);
+      }
 
     batch.end();
     
