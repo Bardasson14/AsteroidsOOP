@@ -15,6 +15,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.mygdx.objects.Asteroids;
 import com.mygdx.objects.Player;
 import com.mygdx.objects.Shoot;
@@ -30,7 +31,7 @@ public class MainGameScreen implements Screen {
   SpriteBatch batch = new SpriteBatch();
   private float timeSeconds = 0f;
   private float period = 1;
-  private float generateCounter = 2.5f;
+  private float generateCounter = 2f;
   private float generateTick = 0f;
   
   /* Criei uma instância da classe World, esta é necessária para o uso de Box2D
@@ -47,13 +48,17 @@ public class MainGameScreen implements Screen {
   Texture img = new Texture("imgs/SpaceShip24x24.png");
   Sprite sprite = new Sprite(img);
 
+  //Passando altura e largura da janela para constantes
+  int WINDOWS_WIDTH  = Gdx.graphics.getWidth() ;
+  int WINDOWS_HEIGHT = Gdx.graphics.getHeight();
+
   //Criando diferentes tipos de asteróides
   Texture imgPeq = new Texture("imgs/ast30x30.png");
   Texture imgMed = new Texture("imgs/ast65x66.png");
   Texture imgGd  = new Texture("imgs/ast100x101.png");
   Sprite[] spriteArray = {new Sprite(imgPeq),new Sprite(imgMed),new Sprite(imgGd)};
   // Instanciando player
-  Player player = new Player(new Vector2(50, 50), world, sprite);
+  Player player = new Player(new Vector2((WINDOWS_WIDTH - sprite.getWidth())/2, WINDOWS_HEIGHT/2), world, sprite);
   
   // Lista de asteróides
   ArrayList<Asteroids> asteroids = new ArrayList<Asteroids>();
@@ -61,8 +66,6 @@ public class MainGameScreen implements Screen {
   //Player player2 = new Player(500, 300, world, sprite);
 
   // Tamanho da janela
-  int WINDOWS_WIDTH  = Gdx.graphics.getWidth() ;
-  int WINDOWS_HEIGHT = Gdx.graphics.getHeight();
 
   // CONSTRUTOR DA CLASSE
   public MainGameScreen(AsteroidsGame game) {
@@ -88,26 +91,7 @@ public class MainGameScreen implements Screen {
 
     player.move();
 
-    //asteroidSelection = 0 -> menor sprite (pode tomar um tiro)
-    //e assim sucessivamente...
-    if (generateTick > generateCounter){
-      Random r = new Random();
-      int asteroidSelection = r.nextInt(2);
-      int y = r.nextInt(WINDOWS_HEIGHT);
-      int dir_y = 1;
-      if (y > (WINDOWS_HEIGHT/2)) dir_y = -1;
-      int random_speed = 160;
-      int random_x = r.nextInt(1);
-      int dir_x = 1;
-      int x = 0;
-      if (random_x == 1) {
-        x = WINDOWS_HEIGHT;
-        dir_x = -1;
-      }
-      asteroids.add(new Asteroids(new Vector2(x, y), world, spriteArray[asteroidSelection], random_speed*dir_x/*Gdx.graphics.getDeltaTime()*/, random_speed*dir_y/*Gdx.graphics.getDeltaTime()*/));
-      generateTick = 0;
-    }
-
+    generateTick = Asteroids.generateAsteroids(world, generateTick, generateCounter, spriteArray, asteroids, WINDOWS_WIDTH, WINDOWS_HEIGHT);
     generateTick += Gdx.graphics.getDeltaTime();
 
     player.shoot_tick += Gdx.graphics.getDeltaTime();
