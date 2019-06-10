@@ -2,6 +2,7 @@ package com.mygdx.screens;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 //import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
@@ -11,7 +12,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-//import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
@@ -23,15 +23,15 @@ import com.mygdx.asteroids.AsteroidsGame;
 
 public class MainGameScreen implements Screen {
 
-  private static final String IMGS_AST30X30_PNG = "imgs/ast30X30.png";
-
+  
 // Declarei uma instância da classe principal
   AsteroidsGame game;
 
   SpriteBatch batch = new SpriteBatch();
-  private float timeSeconds = 0;
+  private float timeSeconds = 0f;
   private float period = 1;
-  private float generateCounter = 2f, generateTick = generateCounter;
+  private float generateCounter = 2.5f;
+  private float generateTick = 0f;
   
   /* Criei uma instância da classe World, esta é necessária para o uso de Box2D
   * Param:
@@ -48,26 +48,22 @@ public class MainGameScreen implements Screen {
   Sprite sprite = new Sprite(img);
 
   //Criando diferentes tipos de asteróides
-  Sprite sprites[] = new Sprite[3];
   Texture imgPeq = new Texture("imgs/ast30x30.png");
-  sprites[0] = new Sprite(imgPeq);
   Texture imgMed = new Texture("imgs/ast65x66.png");
-  sprites[1] = new Sprite(imgMed);
   Texture imgGd  = new Texture("imgs/ast100x101.png");
-  sprites[2] = new Sprite(imgGd);
-
+  Sprite[] spriteArray = {new Sprite(imgPeq),new Sprite(imgMed),new Sprite(imgGd)};
   // Instanciando player
   Player player = new Player(new Vector2(50, 50), world, sprite);
   
   // Lista de asteróides
-  HashMap<Integer, Asteroids> asteroids = new HashMap<Integer, Asteroids>();
+  ArrayList<Asteroids> asteroids = new ArrayList<Asteroids>();
   //Chave: número de tiros que o asteroide pode sofrer
   //Player player2 = new Player(500, 300, world, sprite);
 
   // Tamanho da janela
   int WINDOWS_WIDTH  = Gdx.graphics.getWidth() ;
   int WINDOWS_HEIGHT = Gdx.graphics.getHeight();
-  
+
   // CONSTRUTOR DA CLASSE
   public MainGameScreen(AsteroidsGame game) {
 
@@ -100,35 +96,35 @@ public class MainGameScreen implements Screen {
       int y = r.nextInt(WINDOWS_HEIGHT);
       int dir_y = 1;
       if (y > (WINDOWS_HEIGHT/2)) dir_y = -1;
-      int random_speed = r.nextInt(500) + 300;
+      int random_speed = 160;
       int random_x = r.nextInt(1);
-      int x = r.nextInt(WINDOWS_WIDTH);
       int dir_x = 1;
+      int x = 0;
       if (random_x == 1) {
         x = WINDOWS_HEIGHT;
         dir_x = -1;
       }
-      else 
-        x = 0;
-      asteroids.put(new Integer(asteroidSelection + 1), new Asteroids(new Vector2(x, y), world, sprites[asteroidSelection], random_speed*dir_x, random_speed*dir_y));
+      asteroids.add(new Asteroids(new Vector2(x, y), world, spriteArray[asteroidSelection], random_speed*dir_x/*Gdx.graphics.getDeltaTime()*/, random_speed*dir_y/*Gdx.graphics.getDeltaTime()*/));
+      generateTick = 0;
     }
 
-    else{
-      generateTick += Gdx.graphics.getDeltaTime();
-    }
+    generateTick += Gdx.graphics.getDeltaTime();
 
     player.shoot_tick += Gdx.graphics.getDeltaTime();
 
     for (Shoot shoot: player.shoots)
       shoot.move(shoot);
+    for (Asteroids asteroid: asteroids)
+      asteroid.move_xy(asteroid.SPEED);
+    
     player.player_shoot(player);
     batch.begin();
     //game.batch.begin();
     //game.batch.draw(sprite, player.pos.x, player.pos.y);
     player.sprite.draw(batch);
     //player2.sprite.draw(batch);
-    for (Integer key: asteroids.keySet())
-      asteroids.get(key).sprite.draw(batch);
+    for (Asteroids asteroid: asteroids)
+      asteroid.sprite.draw(batch);
     for (Shoot shoot: player.shoots){
       shoot.sprite.draw(batch);
     }
