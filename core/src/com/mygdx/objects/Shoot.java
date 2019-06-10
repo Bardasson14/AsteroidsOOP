@@ -9,8 +9,8 @@ import com.badlogic.gdx.physics.box2d.World;
 
 public class Shoot extends DynamicGameObject {
 
-    float speed_x = 200;
-    float speed_y = 200;
+    float speed_x = 1000;
+    float speed_y = 1000;
     Vector2 SHOOT_SPEED = new Vector2(1000*Gdx.graphics.getDeltaTime(), 1000*Gdx.graphics.getDeltaTime());
 
     
