@@ -19,6 +19,7 @@ public class Player extends DynamicGameObject{
 	public float shoot_delay = 0.5f;
     public float shoot_tick = shoot_delay;
 	Vector2 ACCELERATION = new Vector2(250, 250);
+	Vector2 NOT_ACCELERATION = new Vector2(1,1);
 	
 	public List<Shoot> shoots = new ArrayList<Shoot>();
     // CONSTRUTOR DA CLASSE
@@ -42,9 +43,12 @@ public class Player extends DynamicGameObject{
 			this.rotacao += 4;
 			this.rotaciona(rotacao);
 		}
+		if(!Gdx.input.isKeyPressed(Keys.SPACE)){
+			looseSpeed(Speed,NOT_ACCELERATION);
+		}
 
 		move_xy(Speed);
-		looseSpeed(Speed, ACCELERATION);
+		System.out.println(Speed);
 		//se o sprite já saiu da tela pela direita, ele aparece do outro lado			
 		if(this.pos.x > WINDOWS_WIDTH)	this.pos.x = 0 - spriteWidth;
 

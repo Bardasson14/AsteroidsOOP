@@ -93,9 +93,19 @@ public class DynamicGameObject{
     }
     
     //A nave perde velocidade quando não está acelerando
-    public void looseSpeed(Vector2 speed, Vector2 acceleration) {
-    	if(speed.x > acceleration.x)	speed.x -= this.dir.x * acceleration.x;
-    	if(speed.x > acceleration.x)	speed.y -= this.dir.y * acceleration.y;
+    public void looseSpeed(Vector2 speed, Vector2 not_acceleration) {
+        if(speed.x>0){
+            speed.x = speed.x - not_acceleration.x;
+        }
+        if(speed.y>0){
+            speed.y = speed.y - not_acceleration.y;
+        }
+        if(speed.y<0){
+            speed.y = speed.y + not_acceleration.y;
+        }
+        if(speed.x<0){
+            speed.x = speed.x + not_acceleration.x;
+        }
     }
     
     public boolean collided(DynamicGameObject otherObject) {

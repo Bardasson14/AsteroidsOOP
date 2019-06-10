@@ -11,7 +11,7 @@ public class Shoot extends DynamicGameObject {
 
     float speed_x = 350;
     float speed_y = 350;
-    Vector2 SHOOT_SPEED = new Vector2(speed_x, speed_y);
+    Vector2 SHOOT_SPEED = new Vector2(1000*Gdx.graphics.getDeltaTime(), 1000*Gdx.graphics.getDeltaTime());
 
     
 
