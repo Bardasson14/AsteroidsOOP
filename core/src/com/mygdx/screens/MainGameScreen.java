@@ -23,9 +23,9 @@ import com.mygdx.asteroids.AsteroidsGame;
 
 public class MainGameScreen implements Screen {
 
-  private static final String IMGS_AST30X30_PNG = "imgs/ast30X30.png";
+  //private static final String IMGS_AST30X30_PNG = "imgs/ast30X30.png";
 
-// Declarei uma instância da classe principal
+  // Declarei uma instância da classe principal
   AsteroidsGame game;
 
   SpriteBatch batch = new SpriteBatch();
@@ -66,7 +66,7 @@ public class MainGameScreen implements Screen {
   //Player player2 = new Player(500, 300, world, sprite);
 
   // Tamanho da janela
-  int WINDOWS_WIDTH  = Gdx.graphics.getWidth() ;
+  int WINDOWS_WIDTH  = Gdx.graphics.getWidth();
   int WINDOWS_HEIGHT = Gdx.graphics.getHeight();
   
   // CONSTRUTOR DA CLASSE
