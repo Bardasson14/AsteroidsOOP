@@ -48,14 +48,14 @@ public class MainGameScreen implements Screen {
   Sprite sprite = new Sprite(img);
 
   //Criando diferentes tipos de asteróides
-  Sprite sprites[] = new Sprite[3];
+  //Sprite sprites[] = new Sprite[3];
   
   Texture imgPeq = new Texture("imgs/ast30x30.png");
-  sprites[0] = new Sprite(imgPeq);
+  //sprites[0] = new Sprite(imgPeq);
   Texture imgMed = new Texture("imgs/ast65x66.png");
-  sprites[1] = new Sprite(imgMed);
+  //sprites[1] = new Sprite(imgMed);
   Texture imgGd  = new Texture("imgs/ast100x101.png");
-  sprites[2] = new Sprite(imgGd);
+  //sprites[2] = new Sprite(imgGd);
 
   // Instanciando player
   Player player = new Player(new Vector2(50, 50), world, sprite);
@@ -111,7 +111,7 @@ public class MainGameScreen implements Screen {
       }
       else 
         x = 0;
-      asteroids.put(new Integer(asteroidSelection + 1), new Asteroids(new Vector2(x, y), world, sprites[asteroidSelection], random_speed*dir_x, random_speed*dir_y));
+      //asteroids.put(new Integer(asteroidSelection + 1), new Asteroids(new Vector2(x, y), world, sprites[asteroidSelection], random_speed*dir_x, random_speed*dir_y));
     }
 
     else{
