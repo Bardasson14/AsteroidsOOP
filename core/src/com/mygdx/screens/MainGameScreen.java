@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+
+import com.badlogic.gdx.Game;
 //import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -22,7 +24,7 @@ import com.mygdx.objects.Shoot;
 
 import com.mygdx.asteroids.AsteroidsGame;
 
-public class MainGameScreen implements Screen {
+public class MainGameScreen extends Game implements Screen {
 
   
 // Declarei uma instância da classe principal
@@ -88,7 +90,9 @@ public class MainGameScreen implements Screen {
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
     
-
+    if(Gdx.input.isKeyPressed(Keys.ESCAPE)) {
+      game.setScreen(new Menu(game));
+		}
     player.move();
 
     generateTick = Asteroids.generateAsteroids(world, generateTick, generateCounter, spriteArray, asteroids, WINDOWS_WIDTH, WINDOWS_HEIGHT);
@@ -145,6 +149,11 @@ public class MainGameScreen implements Screen {
 
     // game.batch.dispose();
     // img.dispose();
+
+  }
+
+  @Override
+  public void create() {
 
   }
 
