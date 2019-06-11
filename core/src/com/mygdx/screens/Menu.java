@@ -38,8 +38,8 @@ public class Menu extends Game implements Screen {
         
         menu.batch.begin();
 
-        menu.batch.draw(playbutton,WINDOWS_WIDTH/2,WINDOWS_HEIGHT/2);
-        menu.batch.draw(exitbutton,WINDOWS_WIDTH/2,WINDOWS_HEIGHT/4);
+        menu.batch.draw(playbutton,(WINDOWS_WIDTH - playbutton.getWidth())/2,(WINDOWS_HEIGHT - playbutton.getHeight())/2);
+        menu.batch.draw(exitbutton,(WINDOWS_WIDTH - playbutton.getWidth())/2,(WINDOWS_HEIGHT - playbutton.getHeight())/4);
         if((Gdx.input.getX()>WINDOWS_WIDTH/2)&&(Gdx.input.getX()<WINDOWS_WIDTH/2+playbutton.getWidth())&&(Gdx.input.getY()<WINDOWS_HEIGHT/2)&&(Gdx.input.getY()>WINDOWS_HEIGHT/2-playbutton.getHeight())){
             if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
                 menu.setScreen(new MainGameScreen(menu));

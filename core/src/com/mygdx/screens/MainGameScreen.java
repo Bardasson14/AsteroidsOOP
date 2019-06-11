@@ -103,6 +103,22 @@ public class MainGameScreen implements Screen {
       asteroid.move_xy(asteroid.SPEED);
     
     player.player_shoot(player);
+
+    Iterator<Shoot> s = player.shoots.iterator();
+    Iterator<Asteroids> a = asteroids.iterator();
+    
+    while (a.hasNext()){
+      Asteroids ast = a.next();
+      while (s.hasNext()){
+        Shoot shoot = s.next();
+        if (ast.collided(shoot)){
+          s.remove();
+          a.remove();
+        }
+      }
+    }
+
+
     batch.begin();
     //game.batch.begin();
     //game.batch.draw(sprite, player.pos.x, player.pos.y);
@@ -115,35 +131,8 @@ public class MainGameScreen implements Screen {
       asteroid.sprite.draw(batch);
     }
     //player2.sprite.draw(batch);
-    Iterator<Shoot> s = player.shoots.iterator();
-    Iterator<Asteroids> a = asteroids.iterator();
-    
-    while (a.hasNext()){
-      Asteroids ast = a.next();
-
-      while (s.hasNext()){
-        Shoot shoot = s.next();
-        if (ast.collided(shoot)){
-          player.shoots.remove(shoot);
-          asteroids.remove(ast);
-        }
-      }
-
-    }
-
-    while (a.hasNext()){
-      Asteroids ast = a.next();
-      if (ast.collided(player))
-        asteroids.remove(ast);
-      
-    }
-    
-      
 
     batch.end();
-    
-    //player.collided(player2);
-    //game.batch.end();
 
   }
 
