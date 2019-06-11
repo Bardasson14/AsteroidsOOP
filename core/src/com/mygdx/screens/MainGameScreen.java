@@ -96,9 +96,8 @@ public class MainGameScreen extends Game implements Screen {
     // Movimentação do jogador
     player.move();
 
-    // Spawn de asteroids
-    generateTick = Asteroids.generateAsteroids(world, generateTick, generateCounter, spriteArray, asteroids,
-        WINDOWS_WIDTH, WINDOWS_HEIGHT);
+    //Spawn de asteroids
+    generateTick = Asteroids.generateAsteroids(world, generateTick, generateCounter, spriteArray, asteroids, 1200, 600);
     generateTick += Gdx.graphics.getDeltaTime();
 
     // Delay do tiro do jogador
@@ -122,9 +121,13 @@ public class MainGameScreen extends Game implements Screen {
       Iterator<Shoot> s = player.shoots.iterator();
       while (s.hasNext()){
         Shoot shoot = s.next();
-        if (shoot.sprite.getBoundingRectangle().overlaps(asteroid.sprite.getBoundingRectangle())){
+        if (shoot.collided(asteroid)){
           s.remove();
           a.remove();
+        }
+        if(player.collided(asteroid)){
+          game.setScreen(new Menu(game));
+          System.out.println("piroooooooooooooooucuaiog");
         }
       }
     }

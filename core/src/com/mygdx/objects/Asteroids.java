@@ -36,13 +36,15 @@ public class Asteroids extends DynamicGameObject{
             int random_speed_x = 60 + r.nextInt(30);
             int random_speed_y = r.nextInt(80);
             int random_x = r.nextInt(2);
+            System.out.println(random_x);
             int dir_x = 1;
-            float x = 0;
+            float x;
             //System.out.println(random_x);
             if (random_x == 1) {
-              x = WINDOWS_HEIGHT + spriteArray[asteroidSelection].getWidth()*4;
+              x = WINDOWS_WIDTH;
               dir_x = -1;
             }
+            
             else x = 0 - spriteArray[asteroidSelection].getWidth();
             asteroids.add(new Asteroids(new Vector2(x, y), world, spriteArray[asteroidSelection], random_speed_x*dir_x/*Gdx.graphics.getDeltaTime()*/, random_speed_y*dir_y/*Gdx.graphics.getDeltaTime()*/));
             return 0;

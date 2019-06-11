@@ -7,6 +7,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -93,8 +95,8 @@ public class Player extends DynamicGameObject{
 	@Override
 	public boolean collided(DynamicGameObject otherObject) {
 		Rectangle r1 = this.sprite.getBoundingRectangle();
-        Rectangle r2 = otherObject.sprite.getBoundingRectangle();
-        return r1.overlaps(r2);
+		Circle c1 = new Circle(otherObject.pos, otherObject.sprite.getWidth()/2);
+        return Intersector.overlaps(c1, r1);
 	}
     
 }

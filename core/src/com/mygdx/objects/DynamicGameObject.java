@@ -115,11 +115,6 @@ public abstract class DynamicGameObject{
     }
     
     
-    public boolean collided(DynamicGameObject otherObject) {
-    	Rectangle rectangle1 = this.sprite.getBoundingRectangle();
-    	Rectangle rectangle2 = otherObject.sprite.getBoundingRectangle();
-       	return rectangle1.overlaps(rectangle2);
-    	
-    }
+    public abstract boolean collided(DynamicGameObject otherObject);
     
 }
