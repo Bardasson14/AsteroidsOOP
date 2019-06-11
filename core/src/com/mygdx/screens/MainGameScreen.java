@@ -98,7 +98,7 @@ public class MainGameScreen extends Game implements Screen {
     player.move();
 
     //Spawn de asteroids
-    generateTick = Asteroids.generateAsteroids(world, generateTick, generateCounter, spriteArray, asteroids, WINDOWS_WIDTH, WINDOWS_HEIGHT);
+    generateTick = Asteroids.generateAsteroids(world, generateTick, generateCounter, spriteArray, asteroids, 1200, 600);
     generateTick += Gdx.graphics.getDeltaTime();
 
     //Delay do tiro do jogador
