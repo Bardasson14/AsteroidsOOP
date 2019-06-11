@@ -89,30 +89,41 @@ public class MainGameScreen extends Game implements Screen {
     Gdx.gl.glClearColor(0, 0, 0, 0);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-    
+    //Checa se o ESC foi pressinado e volta para o menu
     if(Gdx.input.isKeyPressed(Keys.ESCAPE)) {
       game.setScreen(new Menu(game));
-		}
+    }
+    //Movimentação do jogador
     player.move();
 
+    //Spawn de asteroids
     generateTick = Asteroids.generateAsteroids(world, generateTick, generateCounter, spriteArray, asteroids, WINDOWS_WIDTH, WINDOWS_HEIGHT);
     generateTick += Gdx.graphics.getDeltaTime();
 
+    //Delay do tiro do jogador
     player.shoot_tick += Gdx.graphics.getDeltaTime();
 
+    //Movimenta os tiros
     for (Shoot shoot: player.shoots)
       shoot.move(shoot);
+    
+    //Movimenta os asteroids
     for (Asteroids asteroid: asteroids)
       asteroid.move_xy(asteroid.SPEED);
     
+    //Verificação para ver se o jogador atirou
     player.player_shoot(player);
+    
     batch.begin();
-    //game.batch.begin();
-    //game.batch.draw(sprite, player.pos.x, player.pos.y);
+    
+    //Desenha o jogador
     player.sprite.draw(batch);
-    //player2.sprite.draw(batch);
+
+    //Desenha os asteroids
     for (Asteroids asteroid: asteroids)
       asteroid.sprite.draw(batch);
+
+    //Desenha os tiros do jogador
     for (Shoot shoot: player.shoots){
       shoot.sprite.draw(batch);
     }

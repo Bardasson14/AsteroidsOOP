@@ -14,6 +14,7 @@ import com.mygdx.objects.DynamicGameObject;
 
 public class Player extends DynamicGameObject{
 
+	//Declaração dos atributos de velocidade e delay do tiro
 	Vector2 Speed = new Vector2();
 	float MAX_SPEED = 240;
 	public float shoot_delay = 0.5f;
@@ -66,6 +67,7 @@ public class Player extends DynamicGameObject{
 	public void player_shoot(Player player){
 		Texture img2 = new Texture("imgs/shoot.png");
 		Sprite shoot_sprite = new Sprite(img2);
+		//Se a tecla K foi pressionada, um tiro será adicionado a uma lista de tiros
 		if (Gdx.input.isKeyPressed(Keys.K) && player.shoot_tick > player.shoot_delay){
 			int dir_x=1, dir_y=1;
 			float p1 = player.pos.x;
