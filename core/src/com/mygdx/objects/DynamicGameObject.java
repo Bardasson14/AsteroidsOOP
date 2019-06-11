@@ -13,7 +13,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 // Esta classe é para qualquer objeto com movimentação
-public class DynamicGameObject{
+public abstract class DynamicGameObject{
 
 	BodyDef bodydef = new BodyDef();
 	Body body;
