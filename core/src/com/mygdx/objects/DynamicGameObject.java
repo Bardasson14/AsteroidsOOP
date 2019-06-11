@@ -80,7 +80,7 @@ public abstract class DynamicGameObject{
         this.pos.mulAdd(speed, Gdx.graphics.getDeltaTime());
         sprite.setPosition(this.pos.x, this.pos.y);
     }
-    
+    //Rotação dos sprites
     public void rotaciona(float novaRotacao) {
     	if(novaRotacao > 360) this.rotacao -= 360;
     	if(novaRotacao < 0)	this.rotacao += 360;
@@ -88,7 +88,7 @@ public abstract class DynamicGameObject{
     	float radianos = (this.rotacao * 2 * MathUtils.PI)/360.f;
     	dir.set(-1 * MathUtils.sin(radianos), MathUtils.cos(radianos));
     }
-    
+    //Função para aceleração dos objetos
     public void accelerate(Vector2 speed, Vector2 acceleration, float MAX_SPEED) {
     	speed.x += this.dir.x * acceleration.x  * Gdx.graphics.getDeltaTime();
         speed.y += this.dir.y * acceleration.y  * Gdx.graphics.getDeltaTime();
@@ -113,7 +113,13 @@ public abstract class DynamicGameObject{
             speed.x = speed.x + not_acceleration.x;
         }
     }
-
-    public abstract boolean collided(DynamicGameObject otherObject);
+    
+    
+    public boolean collided(DynamicGameObject otherObject) {
+    	Rectangle rectangle1 = this.sprite.getBoundingRectangle();
+    	Rectangle rectangle2 = otherObject.sprite.getBoundingRectangle();
+       	return rectangle1.overlaps(rectangle2);
+    	
+    }
     
 }

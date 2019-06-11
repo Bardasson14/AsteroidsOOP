@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
+
+import com.badlogic.gdx.Game;
 //import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -23,7 +25,7 @@ import com.mygdx.objects.Shoot;
 
 import com.mygdx.asteroids.AsteroidsGame;
 
-public class MainGameScreen implements Screen {
+public class MainGameScreen extends Game implements Screen {
 
   
 // Declarei uma instância da classe principal
@@ -88,20 +90,29 @@ public class MainGameScreen implements Screen {
     Gdx.gl.glClearColor(0, 0, 0, 0);
     Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-    
-
+    //Checa se o ESC foi pressinado e volta para o menu
+    if(Gdx.input.isKeyPressed(Keys.ESCAPE)) {
+      game.setScreen(new Menu(game));
+    }
+    //Movimentação do jogador
     player.move();
 
+    //Spawn de asteroids
     generateTick = Asteroids.generateAsteroids(world, generateTick, generateCounter, spriteArray, asteroids, WINDOWS_WIDTH, WINDOWS_HEIGHT);
     generateTick += Gdx.graphics.getDeltaTime();
 
+    //Delay do tiro do jogador
     player.shoot_tick += Gdx.graphics.getDeltaTime();
 
+    //Movimenta os tiros
     for (Shoot shoot: player.shoots)
       shoot.move(shoot);
+    
+    //Movimenta os asteroids
     for (Asteroids asteroid: asteroids)
       asteroid.move_xy(asteroid.SPEED);
     
+    //Verificação para ver se o jogador atirou
     player.player_shoot(player);
 
     Iterator<Shoot> s = player.shoots.iterator();
@@ -120,10 +131,16 @@ public class MainGameScreen implements Screen {
 
 
     batch.begin();
-    //game.batch.begin();
-    //game.batch.draw(sprite, player.pos.x, player.pos.y);
+    
+    //Desenha o jogador
     player.sprite.draw(batch);
-    for (Shoot shoot: player.shoots){ 
+
+    //Desenha os asteroids
+    for (Asteroids asteroid: asteroids)
+      asteroid.sprite.draw(batch);
+
+    //Desenha os tiros do jogador
+    for (Shoot shoot: player.shoots){
       shoot.sprite.draw(batch);
     }
 
@@ -161,6 +178,11 @@ public class MainGameScreen implements Screen {
 
     // game.batch.dispose();
     // img.dispose();
+
+  }
+
+  @Override
+  public void create() {
 
   }
 
