@@ -8,6 +8,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.objects.DynamicGameObject;
@@ -85,6 +86,13 @@ public class Player extends DynamicGameObject{
 			player.shoot_tick = 0f;
 		}
 		
+	}
+
+	@Override
+	public boolean collided(DynamicGameObject otherObject) {
+		Rectangle r1 = this.sprite.getBoundingRectangle();
+        Rectangle r2 = otherObject.sprite.getBoundingRectangle();
+        return r1.overlaps(r2);
 	}
     
 }

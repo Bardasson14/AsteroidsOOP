@@ -3,7 +3,10 @@ package com.mygdx.objects;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -31,6 +34,13 @@ public class Shoot extends DynamicGameObject {
         //shoot.pos.mulAdd(SHOOT_SPEED, Gdx.graphics.getDeltaTime());
         shoot.sprite.setPosition(shoot.pos.x, shoot.pos.y);	
 
+    }
+
+    @Override
+    public boolean collided(DynamicGameObject otherObject) {
+            Rectangle r = this.sprite.getBoundingRectangle();
+            Circle c = new Circle(otherObject.pos, otherObject.spriteWidth/2);
+            return Intersector.overlaps(c, r);
     }
 
 }

@@ -8,12 +8,15 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
 
 // Esta classe é para qualquer objeto com movimentação
-public class DynamicGameObject{
+public abstract class DynamicGameObject{
 
 	BodyDef bodydef = new BodyDef();
 	Body body;
@@ -21,6 +24,9 @@ public class DynamicGameObject{
     //Vector2 = classe de manipulação de vetores 2x2
     public Vector2 pos;     //posição
     
+    //Forma do sprite
+    public Shape2D shape;
+
     //Rotação em graus
     public float rotacao = 0;
 
@@ -107,12 +113,7 @@ public class DynamicGameObject{
             speed.x = speed.x + not_acceleration.x;
         }
     }
-    
-    public boolean collidedAsteroid(DynamicGameObject otherObject) {
-    	Rectangle rectangle = this.sprite.getBoundingRectangle();
-    	Rectangle rectangle2 = otherObject.sprite.getBoundingRectangle();
-       	return rectangle.overlaps(rectangle2);
-    	
-    }
 
+    public abstract boolean collided(DynamicGameObject otherObject);
+    
 }

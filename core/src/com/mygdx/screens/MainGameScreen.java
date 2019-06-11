@@ -2,6 +2,7 @@ package com.mygdx.screens;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 //import com.badlogic.gdx.Game;
@@ -106,16 +107,38 @@ public class MainGameScreen implements Screen {
     //game.batch.begin();
     //game.batch.draw(sprite, player.pos.x, player.pos.y);
     player.sprite.draw(batch);
-    //player2.sprite.draw(batch);
+    for (Shoot shoot: player.shoots){ 
+      shoot.sprite.draw(batch);
+    }
+
     for (Asteroids asteroid: asteroids){
-     // if (asteroid.pos.x < -asteroid.spriteWidth || asteroid.pos.x > (WINDOWS_WIDTH + asteroid.spriteWidth*4)|| asteroid.pos.y < asteroid.spriteWidth || asteroid.pos.y>(WINDOWS_WIDTH + asteroid.spriteHeight))
-        //asteroids.remove(asteroid);
-      /*else*/ asteroid.sprite.draw(batch);
+      asteroid.sprite.draw(batch);
+    }
+    //player2.sprite.draw(batch);
+    Iterator<Shoot> s = player.shoots.iterator();
+    Iterator<Asteroids> a = asteroids.iterator();
+    
+    while (a.hasNext()){
+      Asteroids ast = a.next();
+
+      while (s.hasNext()){
+        Shoot shoot = s.next();
+        if (ast.collided(shoot)){
+          player.shoots.remove(shoot);
+          asteroids.remove(ast);
+        }
+      }
+
+    }
+
+    while (a.hasNext()){
+      Asteroids ast = a.next();
+      if (ast.collided(player))
+        asteroids.remove(ast);
       
     }
-      for (Shoot shoot: player.shoots){ 
-        shoot.sprite.draw(batch);
-      }
+    
+      
 
     batch.end();
     

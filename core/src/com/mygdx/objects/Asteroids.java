@@ -6,13 +6,16 @@ import java.util.Random;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class Asteroids extends DynamicGameObject{
    //public Polygon sprite;
     public Vector2 SPEED;
-    
+
+    Shape2D shape = new Circle(this.pos, this.sprite.getWidth()/2);
     public Asteroids(Vector2 posIni, World world, Sprite sprite, float speed_x, float speed_y){
         super(posIni, world, sprite);
         this.SPEED = new Vector2(speed_x, speed_y);
@@ -44,6 +47,11 @@ public class Asteroids extends DynamicGameObject{
             return 0;
           }
       return generateTick;
+    }
+
+    @Override
+    public boolean collided(DynamicGameObject otherObject) {
+        return false;
     }
     
 
