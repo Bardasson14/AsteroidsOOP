@@ -19,7 +19,7 @@ public class Player extends DynamicGameObject{
 	float MAX_SPEED = 240;
 	public float shoot_delay = 0.5f;
     public float shoot_tick = shoot_delay;
-	Vector2 ACCELERATION = new Vector2(250, 250);
+	Vector2 ACCELERATION = new Vector2(500, 500);
 	Vector2 NOT_ACCELERATION = new Vector2(1,1);
 	
 	public List<Shoot> shoots = new ArrayList<Shoot>();

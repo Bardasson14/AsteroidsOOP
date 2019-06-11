@@ -28,12 +28,10 @@ public class Shoot extends DynamicGameObject {
 	public void move(Shoot shoot){
         
 
-        //PROBLEMA
-        shoot.pos.x += SHOOT_SPEED.x * Gdx.graphics.getDeltaTime();
-        shoot.pos.y += SHOOT_SPEED.y * Gdx.graphics.getDeltaTime();
-        //shoot.pos.mulAdd(SHOOT_SPEED, Gdx.graphics.getDeltaTime());
-        shoot.sprite.setPosition(shoot.pos.x, shoot.pos.y);	
-
+        //shoot.pos.x += SHOOT_SPEED.x * Gdx.graphics.getDeltaTime();
+        //shoot.pos.y += SHOOT_SPEED.y * Gdx.graphics.getDeltaTime();
+        //shoot.sprite.setPosition(shoot.pos.x, shoot.pos.y);
+        move_xy(this.SHOOT_SPEED);
     }
 
     @Override

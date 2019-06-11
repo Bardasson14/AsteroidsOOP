@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.screens.MainGameScreen;
+import com.mygdx.screens.Menu;
 
 public class AsteroidsGame extends Game {
 
@@ -18,7 +19,7 @@ public class AsteroidsGame extends Game {
 	public void create() {
 
 		batch = new SpriteBatch();
-		this.setScreen(new MainGameScreen(this));
+		this.setScreen(new Menu(this));
 
 	}
 
