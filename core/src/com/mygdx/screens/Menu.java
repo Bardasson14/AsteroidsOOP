@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -43,6 +44,9 @@ public class Menu extends Game implements Screen {
         menu.batch.draw(playbutton,WINDOWS_WIDTH/2,WINDOWS_HEIGHT/2);
         menu.batch.draw(exitbutton,WINDOWS_WIDTH/2,WINDOWS_HEIGHT/4);
 
+        if(Gdx.input.isKeyPressed(Keys.ENTER)){
+            menu.setScreen(new MainGameScreen(menu));
+        }
         //Verifica se o mouse está sobre o botao de play
         if((Gdx.input.getX()>WINDOWS_WIDTH/2)&&(Gdx.input.getX()<WINDOWS_WIDTH/2+playbutton.getWidth())&&(Gdx.input.getY()<WINDOWS_HEIGHT/2)&&(Gdx.input.getY()>WINDOWS_HEIGHT/2-playbutton.getHeight())){
             //Verifica se o botão esquerdo do mouse foi pressionado
@@ -52,6 +56,9 @@ public class Menu extends Game implements Screen {
             }
         }
 
+        if(Gdx.input.isKeyPressed(Keys.ESCAPE)){
+            Gdx.app.exit();
+        }
         //Verifica se o mouse está sobre o botao de sair
         if((Gdx.input.getX()>WINDOWS_WIDTH/2)&&(Gdx.input.getX()<WINDOWS_WIDTH/2+exitbutton.getWidth())&&(Gdx.input.getY()<WINDOWS_HEIGHT-WINDOWS_HEIGHT/4)&&(Gdx.input.getY()>-WINDOWS_HEIGHT/4-exitbutton.getHeight()+WINDOWS_HEIGHT)){
             //Verifica se o botão esquerdo do mouse foi pressionado
