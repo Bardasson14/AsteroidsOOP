@@ -114,20 +114,30 @@ public class MainGameScreen extends Game implements Screen {
     // Verificação para ver se o jogador atirou
     player.player_shoot(player);
 
-    Iterator<Asteroids> a = asteroids.iterator();
+    Iterator<Shoot> s = player.shoots.iterator();
+      
+    while (s.hasNext()){
+      Shoot shoot = s.next();
+        
 
-    while (a.hasNext()){
-      Asteroids asteroid = a.next();
-      Iterator<Shoot> s = player.shoots.iterator();
-      while (s.hasNext()){
-        Shoot shoot = s.next();
+      Iterator<Asteroids> a = asteroids.iterator();
+
+      
+      while (a.hasNext()){
+        Asteroids asteroid = a.next();
         if (shoot.collided(asteroid)){
           s.remove();
           a.remove();
+          continue;
         }
+      }
+
+      while (a.hasNext()){
+        Asteroids asteroid = a.next();
         if(player.collided(asteroid)){
           game.setScreen(new Menu(game));
           System.out.println("piroooooooooooooooucuaiog");
+        
         }
       }
     }
