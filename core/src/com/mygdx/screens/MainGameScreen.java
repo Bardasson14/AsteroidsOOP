@@ -169,11 +169,9 @@ public class MainGameScreen extends Game implements Screen {
 
     score_number.draw(batch, "SCORE: " + Integer.toString(this.score), WINDOWS_WIDTH/6, WINDOWS_HEIGHT - WINDOWS_HEIGHT/20);
     
-    int aux = this.life+1;
     for(int i = 0;i<=this.life;i++){
-      sprite.setPosition(WINDOWS_WIDTH/6+sprite.getWidth()*aux,WINDOWS_HEIGHT - WINDOWS_HEIGHT/7);
+      sprite.setPosition(WINDOWS_WIDTH/6+sprite.getWidth()*i,WINDOWS_HEIGHT - WINDOWS_HEIGHT/7);
       sprite.draw(batch);
-      aux -= 1;
     }
     //Desenha os asteroids
     for (Asteroids asteroid: asteroids)
