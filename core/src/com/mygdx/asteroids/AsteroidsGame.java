@@ -19,7 +19,7 @@ public class AsteroidsGame extends Game {
 	public void create() {
 
 		batch = new SpriteBatch();
-		this.setScreen(new Score(this,1));
+		this.setScreen(new Menu(this));
 
 	}
 
