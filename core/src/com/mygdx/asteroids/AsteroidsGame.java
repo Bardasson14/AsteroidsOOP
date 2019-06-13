@@ -1,5 +1,4 @@
 
-
 package com.mygdx.asteroids;
 
 import com.badlogic.gdx.Game;
@@ -10,6 +9,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.screens.MainGameScreen;
 import com.mygdx.screens.Menu;
+import com.mygdx.screens.Score;
 
 public class AsteroidsGame extends Game {
 
@@ -19,7 +19,7 @@ public class AsteroidsGame extends Game {
 	public void create() {
 
 		batch = new SpriteBatch();
-		this.setScreen(new Menu(this));
+		this.setScreen(new Score(this,1));
 
 	}
 

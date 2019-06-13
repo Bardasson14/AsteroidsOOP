@@ -69,7 +69,6 @@ public class MainGameScreen extends Game implements Screen {
 
   // Pontuacao
   BitmapFont score_number = new BitmapFont();
-  BitmapFont score_final = new BitmapFont();
   int score;
   // Lista de asteróides
   ArrayList<Asteroids> asteroids = new ArrayList<Asteroids>();
@@ -129,7 +128,7 @@ public class MainGameScreen extends Game implements Screen {
       Asteroids asteroid = a.next();
       Iterator<Shoot> s = player.shoots.iterator();
       if ((player.collided(asteroid)) && (this.life == 0)) {
-        game.setScreen(new Menu(game));
+        game.setScreen(new Score(game,score));
       }
       else if(player.collided(asteroid)){
         game.setScreen(new MainGameScreen(game,this.life-1,this.score));
@@ -145,8 +144,11 @@ public class MainGameScreen extends Game implements Screen {
             this.score += 80;
           }
           else if(asteroid.spriteHeight ==  imgGd.getHeight()){
-            //ast.add(new Asteroids(new Vector2(asteroid.pos.x, asteroid.pos.y),world,spriteArray[1],asteroid.SPEED.x*2.0f,asteroid.SPEED.y*2.0f));
-            //ast.add(new Asteroids(new Vector2(asteroid.pos.x, asteroid.pos.y),world,spriteArray[1],asteroid.SPEED.x*2.0f,asteroid.SPEED.y*2.0f));
+            Asteroids aux_ast1 = new Asteroids(new Vector2(asteroid.pos.x, asteroid.pos.y),world,spriteArray[1],asteroid.SPEED.x*2.0f,asteroid.SPEED.y*2.0f);
+            ast.add(aux_ast1);
+            Asteroids aux_ast2 = new Asteroids(new Vector2(asteroid.pos.x, asteroid.pos.y),world,spriteArray[1],asteroid.SPEED.x*2.0f,asteroid.SPEED.y*-1*2.0f);
+            aux_ast2.dir.y = -1*aux_ast2.dir.y;
+            ast.add(aux_ast2);
             this.score += 40;
           }
           s.remove();
@@ -184,6 +186,8 @@ public class MainGameScreen extends Game implements Screen {
 
     for (Asteroids asteroid: asteroids){
       asteroid.sprite.draw(batch);
+      asteroid.rotacao -= 1;
+      asteroid.rotaciona(asteroid.rotacao);
     }
     //player2.sprite.draw(batch);
 
