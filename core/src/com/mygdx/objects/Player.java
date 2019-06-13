@@ -24,6 +24,7 @@ public class Player extends DynamicGameObject{
     public float shoot_tick = shoot_delay;
 	Vector2 ACCELERATION = new Vector2(500, 500);
 	Vector2 NOT_ACCELERATION = new Vector2(1,1);
+	public int score = 0;
 	
 	public List<Shoot> shoots = new ArrayList<Shoot>();
     // CONSTRUTOR DA CLASSE
@@ -52,7 +53,6 @@ public class Player extends DynamicGameObject{
 		}
 
 		move_xy(Speed);
-		System.out.println(Speed);
 		//se o sprite já saiu da tela pela direita, ele aparece do outro lado			
 		if(this.pos.x > WINDOWS_WIDTH)	this.pos.x = 0 - spriteWidth;
 
@@ -98,5 +98,6 @@ public class Player extends DynamicGameObject{
 		Circle c1 = new Circle(otherObject.pos, otherObject.sprite.getWidth()/2);
         return Intersector.overlaps(c1, r1);
 	}
+
     
 }
