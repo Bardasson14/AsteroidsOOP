@@ -46,14 +46,14 @@ public class Menu extends Game implements Screen {
         menu.batch.draw(exitbutton,(WINDOWS_WIDTH)/2,WINDOWS_HEIGHT/4);
        
         if(Gdx.input.isKeyPressed(Keys.ENTER)){
-            menu.setScreen(new MainGameScreen(menu));
+            menu.setScreen(new MainGameScreen(menu, 2,0));
         }
         //Verifica se o mouse está sobre o botao de play
         if((Gdx.input.getX()>(WINDOWS_WIDTH/2)&&(Gdx.input.getX()<WINDOWS_WIDTH/2+playbutton.getWidth())&&(Gdx.input.getY()<WINDOWS_HEIGHT/2)&&(Gdx.input.getY()>WINDOWS_HEIGHT/2-playbutton.getHeight()))){
             //Verifica se o botão esquerdo do mouse foi pressionado
             if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
                 //Começa o jogo
-                menu.setScreen(new MainGameScreen(menu));
+                menu.setScreen(new MainGameScreen(menu,2,0));
             }
         }
 
