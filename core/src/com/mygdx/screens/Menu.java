@@ -42,14 +42,14 @@ public class Menu extends Game implements Screen {
         menu.batch.begin();
 
         //Posiciona os botoes na tela
-        menu.batch.draw(playbutton,(WINDOWS_WIDTH)/2,WINDOWS_HEIGHT/2);
-        menu.batch.draw(exitbutton,(WINDOWS_WIDTH)/2,WINDOWS_HEIGHT/4);
+        menu.batch.draw(playbutton,(WINDOWS_WIDTH)/2-playbutton.getWidth()/2,WINDOWS_HEIGHT/2);
+        menu.batch.draw(exitbutton,(WINDOWS_WIDTH)/2-playbutton.getWidth()/2,WINDOWS_HEIGHT/4);
        
         if(Gdx.input.isKeyPressed(Keys.ENTER)){
             menu.setScreen(new MainGameScreen(menu, 2,0));
         }
         //Verifica se o mouse está sobre o botao de play
-        if((Gdx.input.getX()>(WINDOWS_WIDTH/2)&&(Gdx.input.getX()<WINDOWS_WIDTH/2+playbutton.getWidth())&&(Gdx.input.getY()<WINDOWS_HEIGHT/2)&&(Gdx.input.getY()>WINDOWS_HEIGHT/2-playbutton.getHeight()))){
+        if((Gdx.input.getX()>(WINDOWS_WIDTH/2-playbutton.getWidth()/2)&&(Gdx.input.getX()<WINDOWS_WIDTH/2+playbutton.getWidth()/2)&&(Gdx.input.getY()<WINDOWS_HEIGHT/2)&&(Gdx.input.getY()>WINDOWS_HEIGHT/2-playbutton.getHeight()))){
             //Verifica se o botão esquerdo do mouse foi pressionado
             if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
                 //Começa o jogo
@@ -61,7 +61,7 @@ public class Menu extends Game implements Screen {
         //    Gdx.app.exit();
         //}
         //Verifica se o mouse está sobre o botao de sair
-        if((Gdx.input.getX()>WINDOWS_WIDTH/2)&&(Gdx.input.getX()<WINDOWS_WIDTH/2+exitbutton.getWidth())&&(Gdx.input.getY()<WINDOWS_HEIGHT-WINDOWS_HEIGHT/4)&&(Gdx.input.getY()>-WINDOWS_HEIGHT/4-exitbutton.getHeight()+WINDOWS_HEIGHT)){
+        if((Gdx.input.getX()>WINDOWS_WIDTH/2-playbutton.getWidth()/2)&&(Gdx.input.getX()<WINDOWS_WIDTH/2+exitbutton.getWidth()/2)&&(Gdx.input.getY()<WINDOWS_HEIGHT-WINDOWS_HEIGHT/4)&&(Gdx.input.getY()>-WINDOWS_HEIGHT/4-exitbutton.getHeight()+WINDOWS_HEIGHT)){
             //Verifica se o botão esquerdo do mouse foi pressionado
             if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
                 //Fecha o jogo
