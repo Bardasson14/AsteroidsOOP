@@ -89,7 +89,7 @@ public class Player extends DynamicGameObject{
 			shoot.speed_y *= dir_y;
 			float radianos = (shoot.rotacao * 2 * MathUtils.PI)/360.f;
 			shoot.SHOOT_SPEED = new Vector2(-shoot.speed_x*MathUtils.sin(radianos), -shoot.speed_y*MathUtils.cos(radianos)*-1);
-			System.out.println(shoot.speed_x*MathUtils.sin(radianos));
+			//System.out.println(shoot.speed_x*MathUtils.sin(radianos));
 			
 			player.shoots.add(shoot);	
 			player.shoot_tick = 0f;
@@ -99,9 +99,9 @@ public class Player extends DynamicGameObject{
 
 	@Override
 	public boolean collided(DynamicGameObject otherObject) {
-		Rectangle c = otherObject.sprite.getBoundingRectangle();
-		Rectangle r = this.sprite.getBoundingRectangle();
-        return c.overlaps(r);
+		Rectangle c = this.sprite.getBoundingRectangle();
+		Rectangle r = otherObject.sprite.getBoundingRectangle();
+		return c.overlaps(r); 
 	}
 
     

@@ -140,13 +140,16 @@ public class MainGameScreen extends Game implements Screen {
             this.score += 160;
           }
           else if(asteroid.spriteHeight ==  imgMed.getHeight()){
-            ast.add(new Asteroids(new Vector2(asteroid.pos.x, asteroid.pos.y),world,spriteArray[0],asteroid.SPEED.x*2.0f,asteroid.SPEED.y*2.0f));
+            Asteroids aux_ast1 = new Asteroids(new Vector2(asteroid.pos.x, asteroid.pos.y),world,spriteArray[0],asteroid.SPEED.x*1.5f,asteroid.SPEED.y*1.5f); 
+            ast.add(aux_ast1);
+            Asteroids aux_ast2 = new Asteroids(new Vector2(asteroid.pos.x, asteroid.pos.y),world,spriteArray[0],asteroid.SPEED.x*1.5f,asteroid.SPEED.y*-1*1.5f);
+            ast.add(aux_ast2);
             this.score += 80;
           }
           else if(asteroid.spriteHeight ==  imgGd.getHeight()){
-            Asteroids aux_ast1 = new Asteroids(new Vector2(asteroid.pos.x, asteroid.pos.y),world,spriteArray[1],asteroid.SPEED.x*2.0f,asteroid.SPEED.y*2.0f);
+            Asteroids aux_ast1 = new Asteroids(new Vector2(asteroid.pos.x, asteroid.pos.y),world,spriteArray[1],asteroid.SPEED.x*1.5f,asteroid.SPEED.y*1.5f);
             ast.add(aux_ast1);
-            Asteroids aux_ast2 = new Asteroids(new Vector2(asteroid.pos.x, asteroid.pos.y),world,spriteArray[1],asteroid.SPEED.x*2.0f,asteroid.SPEED.y*-1*2.0f);
+            Asteroids aux_ast2 = new Asteroids(new Vector2(asteroid.pos.x, asteroid.pos.y),world,spriteArray[1],asteroid.SPEED.x*1.5f,asteroid.SPEED.y*-1*1.5f);
             aux_ast2.dir.y = -1*aux_ast2.dir.y;
             ast.add(aux_ast2);
             this.score += 40;
