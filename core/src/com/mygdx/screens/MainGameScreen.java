@@ -13,6 +13,7 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
@@ -26,7 +27,6 @@ import com.mygdx.objects.Player;
 import com.mygdx.objects.Shoot;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Shape2D;
-
 import com.mygdx.asteroids.AsteroidsGame;
 
 public class MainGameScreen extends Game implements Screen {
@@ -58,24 +58,32 @@ public class MainGameScreen extends Game implements Screen {
 
   // Criando diferentes tipos de asteróides
   Texture imgPeq = new Texture("imgs/ast30x30.png");
-  Texture imgMed = new Texture("imgs/ast65x66.png");
+  public Texture imgMed = new Texture("imgs/ast65x66.png");
   Texture imgGd = new Texture("imgs/ast100x101.png");
   Sprite[] spriteArray = { new Sprite(imgPeq), new Sprite(imgMed), new Sprite(imgGd) };
   // Instanciando player
   Player player = new Player(new Vector2((WINDOWS_WIDTH - sprite.getWidth()) / 2, WINDOWS_HEIGHT / 2), world, sprite);
 
+  // Vidas
+  int life;
+
+  // Pontuacao
+  BitmapFont score_number = new BitmapFont();
+  int score;
   // Lista de asteróides
   ArrayList<Asteroids> asteroids = new ArrayList<Asteroids>();
+  ArrayList<Asteroids> ast = new ArrayList<Asteroids>();
   // Chave: número de tiros que o asteroide pode sofrer
   // Player player2 = new Player(500, 300, world, sprite);
 
   // Tamanho da janela
 
   // CONSTRUTOR DA CLASSE
-  public MainGameScreen(AsteroidsGame game) {
+  public MainGameScreen(AsteroidsGame game, int life, int score) {
 
     this.game = game;
-
+    this.life = life;
+    this.score = score;
   }
 
   @Override
@@ -96,7 +104,7 @@ public class MainGameScreen extends Game implements Screen {
     // Movimentação do jogador
     player.move();
 
-    //Spawn de asteroids
+    // Spawn de asteroids
     generateTick = Asteroids.generateAsteroids(world, generateTick, generateCounter, spriteArray, asteroids, 1200, 600);
     generateTick += Gdx.graphics.getDeltaTime();
 
@@ -114,22 +122,34 @@ public class MainGameScreen extends Game implements Screen {
     // Verificação para ver se o jogador atirou
     player.player_shoot(player);
 
-    Iterator<Shoot> s = player.shoots.iterator();
-      
-    while (s.hasNext()){
-      Shoot shoot = s.next();
-        
-
-      Iterator<Asteroids> a = asteroids.iterator();
-
-      
-      while (a.hasNext()){
-        Asteroids asteroid = a.next();
+    Iterator<Asteroids> a = asteroids.iterator();
+    System.out.println(this.score);
+    while (a.hasNext()) {
+      Asteroids asteroid = a.next();
+      Iterator<Shoot> s = player.shoots.iterator();
+      if ((player.collided(asteroid)) && (this.life == 0)) {
+        game.setScreen(new Score(game,score));
+      }
+      else if(player.collided(asteroid)){
+        game.setScreen(new MainGameScreen(game,this.life-1,this.score));
+      }
+      while (s.hasNext()){
+        Shoot shoot = s.next();
         if (shoot.collided(asteroid)){
-          
-          if (asteroid.sprite.equals(new Sprite(spriteArray[2]))){
-            asteroids.add(new Asteroids(new Vector2(asteroid.pos.x, asteroid.pos.y), world, spriteArray[1], asteroid.SPEED.x, -asteroid.SPEED.y));
-            asteroids.add(new Asteroids(asteroid.pos, world, spriteArray[1], asteroid.SPEED.x, asteroid.SPEED.y));
+          if(asteroid.spriteHeight ==  imgPeq.getHeight()){
+            this.score += 160;
+          }
+          else if(asteroid.spriteHeight ==  imgMed.getHeight()){
+            ast.add(new Asteroids(new Vector2(asteroid.pos.x, asteroid.pos.y),world,spriteArray[0],asteroid.SPEED.x*2.0f,asteroid.SPEED.y*2.0f));
+            this.score += 80;
+          }
+          else if(asteroid.spriteHeight ==  imgGd.getHeight()){
+            Asteroids aux_ast1 = new Asteroids(new Vector2(asteroid.pos.x, asteroid.pos.y),world,spriteArray[1],asteroid.SPEED.x*2.0f,asteroid.SPEED.y*2.0f);
+            ast.add(aux_ast1);
+            Asteroids aux_ast2 = new Asteroids(new Vector2(asteroid.pos.x, asteroid.pos.y),world,spriteArray[1],asteroid.SPEED.x*2.0f,asteroid.SPEED.y*-1*2.0f);
+            aux_ast2.dir.y = -1*aux_ast2.dir.y;
+            ast.add(aux_ast2);
+            this.score += 40;
           }
           s.remove();
           a.remove();
@@ -139,16 +159,13 @@ public class MainGameScreen extends Game implements Screen {
           continue;
         }
       }
-
-      while (a.hasNext()){
-        Asteroids asteroid = a.next();
-        if(player.collided(asteroid)){
-          game.setScreen(new Menu(game));
-          System.out.println("piroooooooooooooooucuaiog");
-        
-        }
-      }
     }
+
+    for(Asteroids asteroide: ast){
+      asteroids.add(asteroide);
+    }
+    
+    ast.clear();
 
 
     batch.begin();
@@ -156,6 +173,12 @@ public class MainGameScreen extends Game implements Screen {
     //Desenha o jogador
     player.sprite.draw(batch);
 
+    score_number.draw(batch, "SCORE: " + Integer.toString(this.score), WINDOWS_WIDTH/6, WINDOWS_HEIGHT - WINDOWS_HEIGHT/20);
+    
+    for(int i = 0;i<=this.life;i++){
+      sprite.setPosition(WINDOWS_WIDTH/6+sprite.getWidth()*i,WINDOWS_HEIGHT - WINDOWS_HEIGHT/7);
+      sprite.draw(batch);
+    }
     //Desenha os asteroids
     for (Asteroids asteroid: asteroids)
       asteroid.sprite.draw(batch);
@@ -167,6 +190,8 @@ public class MainGameScreen extends Game implements Screen {
 
     for (Asteroids asteroid: asteroids){
       asteroid.sprite.draw(batch);
+      asteroid.rotacao -= 1;
+      asteroid.rotaciona(asteroid.rotacao);
     }
     //player2.sprite.draw(batch);
 

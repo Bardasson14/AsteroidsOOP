@@ -14,16 +14,22 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.objects.DynamicGameObject;
+import com.mygdx.screens.MainGameScreen;
 
 public class Player extends DynamicGameObject{
 
 	//Declaração dos atributos de velocidade e delay do tiro
+	Texture imgPeq = new Texture("imgs/ast30x30.png");
+  	public Texture imgMed = new Texture("imgs/ast65x66.png");
+  	Texture imgGd = new Texture("imgs/ast100x101.png");
+	Sprite[] spriteArray = { new Sprite(imgPeq), new Sprite(imgMed), new Sprite(imgGd) };
 	Vector2 Speed = new Vector2();
 	float MAX_SPEED = 240;
 	public float shoot_delay = 0.5f;
     public float shoot_tick = shoot_delay;
 	Vector2 ACCELERATION = new Vector2(500, 500);
 	Vector2 NOT_ACCELERATION = new Vector2(1,1);
+	public int score = 0;
 	
 	public List<Shoot> shoots = new ArrayList<Shoot>();
     // CONSTRUTOR DA CLASSE
@@ -52,7 +58,6 @@ public class Player extends DynamicGameObject{
 		}
 
 		move_xy(Speed);
-		System.out.println(Speed);
 		//se o sprite já saiu da tela pela direita, ele aparece do outro lado			
 		if(this.pos.x > WINDOWS_WIDTH)	this.pos.x = 0 - spriteWidth;
 
@@ -94,9 +99,10 @@ public class Player extends DynamicGameObject{
 
 	@Override
 	public boolean collided(DynamicGameObject otherObject) {
-		Rectangle r1 = this.sprite.getBoundingRectangle();
-		Circle c1 = new Circle(otherObject.pos, otherObject.sprite.getWidth()/2);
-        return Intersector.overlaps(c1, r1);
+		Rectangle c = otherObject.sprite.getBoundingRectangle();
+		Rectangle r = this.sprite.getBoundingRectangle();
+        return c.overlaps(r);
 	}
+
     
 }

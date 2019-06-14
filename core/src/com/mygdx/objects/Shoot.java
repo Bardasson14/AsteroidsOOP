@@ -38,8 +38,10 @@ public class Shoot extends DynamicGameObject {
     @Override
     public boolean collided(DynamicGameObject otherObject) {
             Rectangle r = this.sprite.getBoundingRectangle();
-            Circle c = new Circle(otherObject.pos, otherObject.spriteWidth/2);
-            return Intersector.overlaps(c, r);
+            Rectangle c = otherObject.sprite.getBoundingRectangle();
+            
+            //Circle c = new Circle(otherObject.pos, otherObject.spriteWidth/2);
+            return r.overlaps(c);
     }
 
 }

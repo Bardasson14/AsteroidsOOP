@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.screens.MainGameScreen;
 
 
 public class Asteroids extends DynamicGameObject{
@@ -29,14 +30,14 @@ public class Asteroids extends DynamicGameObject{
     public static float generateAsteroids(World world, float generateTick, float generateCounter, Sprite[] spriteArray, ArrayList<Asteroids> asteroids, int WINDOWS_WIDTH, int WINDOWS_HEIGHT){
         if (generateTick > generateCounter){
             Random r = new Random();
-            int asteroidSelection = r.nextInt(2);
+            System.out.println(r);
+            int asteroidSelection = r.nextInt(3);
             int y = r.nextInt(WINDOWS_HEIGHT);
             int dir_y = 1;
             if (y > (WINDOWS_HEIGHT/2)) dir_y = -1;
             int random_speed_x = 60 + r.nextInt(30);
             int random_speed_y = r.nextInt(80);
             int random_x = r.nextInt(2);
-            System.out.println(random_x);
             int dir_x = 1;
             float x;
             //System.out.println(random_x);
@@ -56,6 +57,7 @@ public class Asteroids extends DynamicGameObject{
     public boolean collided(DynamicGameObject otherObject) {
         return false;
     }
+
     
 
     /*
