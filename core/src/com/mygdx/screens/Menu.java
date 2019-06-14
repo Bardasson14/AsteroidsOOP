@@ -57,9 +57,6 @@ public class Menu extends Game implements Screen {
             }
         }
 
-        //if(Gdx.input.isKeyPressed(Keys.ESCAPE)){
-        //    Gdx.app.exit();
-        //}
         //Verifica se o mouse está sobre o botao de sair
         if((Gdx.input.getX()>WINDOWS_WIDTH/2)&&(Gdx.input.getX()<WINDOWS_WIDTH/2+exitbutton.getWidth())&&(Gdx.input.getY()<WINDOWS_HEIGHT-WINDOWS_HEIGHT/4)&&(Gdx.input.getY()>-WINDOWS_HEIGHT/4-exitbutton.getHeight()+WINDOWS_HEIGHT)){
             //Verifica se o botão esquerdo do mouse foi pressionado
@@ -68,10 +65,6 @@ public class Menu extends Game implements Screen {
                 Gdx.app.exit();
             }
         }
-
-        // System.out.println(WINDOWS_HEIGHT/2);
-        // System.out.println(WINDOWS_HEIGHT/2+playbutton.getHeight());
-        // System.out.println(WINDOWS_WIDTH/2);
 
         menu.batch.end();
     }

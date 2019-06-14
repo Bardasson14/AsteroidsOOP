@@ -126,8 +126,16 @@ public class MainGameScreen extends Game implements Screen {
       while (a.hasNext()){
         Asteroids asteroid = a.next();
         if (shoot.collided(asteroid)){
+          
+          if (asteroid.sprite.equals(new Sprite(spriteArray[2]))){
+            asteroids.add(new Asteroids(new Vector2(asteroid.pos.x, asteroid.pos.y), world, spriteArray[1], asteroid.SPEED.x, -asteroid.SPEED.y));
+            asteroids.add(new Asteroids(asteroid.pos, world, spriteArray[1], asteroid.SPEED.x, asteroid.SPEED.y));
+          }
           s.remove();
           a.remove();
+          
+          
+
           continue;
         }
       }
