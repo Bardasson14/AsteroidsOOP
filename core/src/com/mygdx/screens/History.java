@@ -16,12 +16,21 @@ import javax.swing.JOptionPane;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.mygdx.asteroids.AsteroidsGame;
 
 public class History extends Game implements Screen{
 
     AsteroidsGame history;
+    BitmapFont record_write = new BitmapFont();
+    SpriteBatch batch = new SpriteBatch();
+    String author, highScore, killCounter, date;
+    boolean isEmpty = true;
+    int WINDOWS_WIDTH = Gdx.graphics.getWidth();
+    int WINDOWS_HEIGHT = Gdx.graphics.getHeight();
 
     public static int checkSaveCondition(int score, AsteroidsGame game) throws IOException{
         int salva = JOptionPane.showConfirmDialog(null, "Deseja salvar o jogo?");
@@ -44,7 +53,7 @@ public class History extends Game implements Screen{
     
     }
 
-    public static void salvaJogo(int score, AsteroidsGame game, Menu menu) throws IOException {
+    public static void salvaJogo(int score, AsteroidsGame game, Menu menu, int killCounter) throws IOException {
         int cond = checkSaveCondition(score, game);
         if (cond==1) {
             String nome = JOptionPane.showInputDialog(null, "Qual é o seu nome?");
@@ -52,12 +61,10 @@ public class History extends Game implements Screen{
             System.out.println(temp.exists());
             if (!temp.exists())
                 throw new IOException();
-
-            String actualDate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-        
+            String actualDate = new SimpleDateFormat("dd/MM/yyyy").format(new Date());
             FileWriter fw = new FileWriter("save_files/ranking.txt", false);
             
-            String linha = nome + " " + score + " " + actualDate + "\n";
+            String linha = nome + " " + score + " " + actualDate + " " + killCounter + "\n";
             
             fw.write(linha);
             fw.flush();
@@ -66,13 +73,20 @@ public class History extends Game implements Screen{
         }
     }
 
-    public History(AsteroidsGame game, AsteroidsGame history, File h)throws IOException{
+    public History(AsteroidsGame history, File h) throws IOException{
         if (!h.exists())
             throw new IOException();
         this.history = history;
-        FileReader fr = new FileReader(h);
-        
-
+        if (h.length() != 0){
+            FileReader fr = new FileReader("save_files/ranking.txt");
+            BufferedReader br = new BufferedReader(fr);
+            String info[] = br.readLine().split(" ");
+            this.author = info[0];
+            this.highScore = info[1];
+            this.date = info[2];
+            this.killCounter = info[3];
+            this.isEmpty = false;
+        }
     }   
 
     @Override
@@ -95,9 +109,23 @@ public class History extends Game implements Screen{
         super.render();
         Gdx.gl.glClearColor(0, 0, 0, 0);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        //this.batch.begin();
 
-        //this.batch.
+        if(Gdx.input.isKeyPressed(Keys.ESCAPE)){
+            history.setScreen(new Menu(history));
+        }
+        
+        batch.begin();
+        
+        if (this.isEmpty){
+            String str =  "YOU HAVEN'T PLAYED YET.\nPLAY A ASTEROIDS MATCH AND SAVE THE RESULTS TO ENABLE THE HISTORY!\n\nPRESS ESC TO EXIT";
+            record_write.draw(batch, str, WINDOWS_WIDTH/3, WINDOWS_HEIGHT/2);
+        }
+        
+        else if (!this.isEmpty){
+            record_write.draw(batch, "HIGH SCORE\n\nPLAYER: " + this.author + "\n\nHIGH SCORE: " + this.highScore + " pts\n\nDestroyed asteroids: " + this.killCounter + " asteroids\n\nDate: " + this.date + "\n\n\nPRESS ESC TO EXIT", Math.round(WINDOWS_WIDTH/2.5), Math.round(WINDOWS_HEIGHT/1.5));
+        }
+        
+        batch.end();
 
     }
 

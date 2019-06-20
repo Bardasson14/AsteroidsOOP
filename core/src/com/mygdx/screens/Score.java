@@ -44,7 +44,7 @@ public class Score implements Screen {
         
         score_write.draw(batch, "GAME OVER", WINDOWS_WIDTH / 2-50,WINDOWS_HEIGHT/2+30);   
         score_write.draw(batch, "FINAL SCORE: " + Integer.toString(this.score_number), WINDOWS_WIDTH / 2-58,WINDOWS_HEIGHT/2);
-        score_write.draw(batch, "PRESS ESC TO GO BACK TO MENU", WINDOWS_WIDTH / 2-120,WINDOWS_HEIGHT/2-30);      
+        score_write.draw(batch, "\n\nPRESS ESC TO GO BACK TO MENU", WINDOWS_WIDTH / 2-120,WINDOWS_HEIGHT/2-30);      
         
         batch.end();
         

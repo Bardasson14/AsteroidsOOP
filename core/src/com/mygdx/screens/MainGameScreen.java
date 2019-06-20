@@ -122,8 +122,7 @@ public class MainGameScreen extends Game implements Screen {
       Iterator<Shoot> s = player.shoots.iterator();
       if ((player.collided(asteroid)) && (this.life == 0)) {
        try{
-        History.salvaJogo(this.score, game, new Menu(game));
-        
+        History.salvaJogo(this.score, game, new Menu(game), this.killCounter);
        }
        catch (IOException e) {
         JOptionPane.showMessageDialog(null, "O arquivo do save não foi encontrado. O jogo não será salvo.");

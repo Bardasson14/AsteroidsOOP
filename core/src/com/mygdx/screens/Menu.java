@@ -1,5 +1,10 @@
 package com.mygdx.screens;
 
+import java.io.File;
+import java.io.IOException;
+
+import javax.swing.JOptionPane;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -66,6 +71,18 @@ public class Menu extends Game implements Screen {
             if(Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
                 //Fecha o jogo
                 Gdx.app.exit();
+            }
+        }
+
+        if ((Gdx.input.getX() > (WINDOWS_WIDTH)/2-playbutton.getWidth()/2)&&(Gdx.input.getX() < (WINDOWS_WIDTH)/2+playbutton.getWidth()/2)&&(Gdx.input.getY() > (WINDOWS_HEIGHT  -  WINDOWS_HEIGHT/10 - rankingbutton.getHeight())&& (Gdx.input.getY() < ((WINDOWS_HEIGHT - WINDOWS_HEIGHT/10))))){
+            
+            if (Gdx.input.isButtonPressed(Input.Buttons.LEFT)){
+                try{
+                    menu.setScreen(new History(menu, new File("save_files/ranking.txt")));
+                }
+                catch (IOException e){
+                    JOptionPane.showMessageDialog(null, "ERRO! Arquivo com o save não foi encontrado");
+                }
             }
         }
         
