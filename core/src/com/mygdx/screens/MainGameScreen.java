@@ -1,10 +1,15 @@
 package com.mygdx.screens;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
+
+import javax.swing.JOptionPane;
 
 import com.badlogic.gdx.Game;
 //import com.badlogic.gdx.Game;
@@ -23,6 +28,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.mygdx.objects.Asteroids;
+import com.mygdx.objects.FileException;
 import com.mygdx.objects.Player;
 import com.mygdx.objects.Shoot;
 import com.badlogic.gdx.math.Rectangle;
@@ -128,7 +134,23 @@ public class MainGameScreen extends Game implements Screen {
       Asteroids asteroid = a.next();
       Iterator<Shoot> s = player.shoots.iterator();
       if ((player.collided(asteroid)) && (this.life == 0)) {
-        game.setScreen(new Score(game,score));
+        
+        
+        int salva = JOptionPane.showConfirmDialog(null, "Deseja salvar o jogo?");
+        if (salva == 0) {
+          String nome = JOptionPane.showInputDialog(null, "Qual é o seu nome?");
+          try {
+            Ranking.salvaJogo(player.score, nome, game, new Menu(game));
+          } catch (IOException e) {
+            JOptionPane.showMessageDialog(null, "O arquivo do save não foi encontrado. O jogo não será salvo.");
+          }
+        }
+
+        //game.setScreen(new Menu(game));
+        //String nomeUsuario = JOptionPane.showInputDialog("Digite seu nome, para que o recorde seja salvo: ");
+        //ESCREVER PONTUAÇÃO E NOME NO ARQUIVO
+
+      game.setScreen(new Score(game,score));
       }
       else if(player.collided(asteroid)){
         game.setScreen(new MainGameScreen(game,this.life-1,this.score));

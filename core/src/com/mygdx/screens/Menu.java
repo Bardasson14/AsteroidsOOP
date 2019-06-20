@@ -14,8 +14,10 @@ import com.mygdx.screens.MainGameScreen;
 
 public class Menu extends Game implements Screen {
     AsteroidsGame menu;
-    Texture exitbutton; 
     Texture playbutton;
+    Texture exitbutton; 
+    Texture rankingbutton;
+
     
     int WINDOWS_WIDTH  = Gdx.graphics.getWidth() ;
     int WINDOWS_HEIGHT = Gdx.graphics.getHeight();
@@ -24,8 +26,9 @@ public class Menu extends Game implements Screen {
     public Menu(AsteroidsGame menu){
         this.menu = menu;
         //Texturas dos botões
-        exitbutton = new Texture("imgs/exitbutton.png");
         playbutton = new Texture("imgs/playbutton.png");
+        exitbutton = new Texture("imgs/exitbutton.png");
+        rankingbutton = new Texture("imgs/ranking.png");
     }
     @Override
     public void show() {
