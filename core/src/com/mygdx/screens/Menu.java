@@ -28,7 +28,7 @@ public class Menu extends Game implements Screen {
         //Texturas dos botões
         playbutton = new Texture("imgs/playbutton.png");
         exitbutton = new Texture("imgs/exitbutton.png");
-        rankingbutton = new Texture("imgs/ranking.png");
+        rankingbutton = new Texture("imgs/history.png");
     }
     @Override
     public void show() {
@@ -47,7 +47,7 @@ public class Menu extends Game implements Screen {
         //Posiciona os botoes na tela
         menu.batch.draw(playbutton,(WINDOWS_WIDTH)/2-playbutton.getWidth()/2,WINDOWS_HEIGHT/2);
         menu.batch.draw(exitbutton,(WINDOWS_WIDTH)/2-playbutton.getWidth()/2,WINDOWS_HEIGHT/4);
-       
+        menu.batch.draw(rankingbutton, (WINDOWS_WIDTH)/2 - rankingbutton.getWidth()/2, WINDOWS_HEIGHT/10);
         if(Gdx.input.isKeyPressed(Keys.ENTER)){
             menu.setScreen(new MainGameScreen(menu, 2,0));
         }
@@ -68,7 +68,7 @@ public class Menu extends Game implements Screen {
                 Gdx.app.exit();
             }
         }
-
+        
         menu.batch.end();
     }
 

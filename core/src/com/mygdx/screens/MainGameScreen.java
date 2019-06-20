@@ -1,13 +1,8 @@
 package com.mygdx.screens;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Random;
 
 import javax.swing.JOptionPane;
 
@@ -23,18 +18,11 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.Array.ArrayIterator;
 import com.mygdx.objects.Asteroids;
-import com.mygdx.objects.FileException;
 import com.mygdx.objects.Player;
 import com.mygdx.objects.Shoot;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Shape2D;
 import com.mygdx.asteroids.AsteroidsGame;
-
+ 
 public class MainGameScreen extends Game implements Screen {
 
   // Declarei uma instância da classe principal
@@ -45,7 +33,7 @@ public class MainGameScreen extends Game implements Screen {
   private float period = 1;
   private float generateCounter = 2f;
   private float generateTick = 0f;
-
+  int killCounter = 0;
   /*
    * Criei uma instância da classe World, esta é necessária para o uso de Box2D
    * Param: Vector2(a, b): a = gravidade no eixo x b = gravidade no eixo y
@@ -127,38 +115,33 @@ public class MainGameScreen extends Game implements Screen {
 
     // Verificação para ver se o jogador atirou
     player.player_shoot(player);
-
     Iterator<Asteroids> a = asteroids.iterator();
     System.out.println(this.score);
     while (a.hasNext()) {
       Asteroids asteroid = a.next();
       Iterator<Shoot> s = player.shoots.iterator();
       if ((player.collided(asteroid)) && (this.life == 0)) {
+       try{
+        History.salvaJogo(this.score, game, new Menu(game));
         
-        
-        int salva = JOptionPane.showConfirmDialog(null, "Deseja salvar o jogo?");
-        if (salva == 0) {
-          String nome = JOptionPane.showInputDialog(null, "Qual é o seu nome?");
-          try {
-            Ranking.salvaJogo(player.score, nome, game, new Menu(game));
-          } catch (IOException e) {
-            JOptionPane.showMessageDialog(null, "O arquivo do save não foi encontrado. O jogo não será salvo.");
-          }
-        }
-
-        //game.setScreen(new Menu(game));
-        //String nomeUsuario = JOptionPane.showInputDialog("Digite seu nome, para que o recorde seja salvo: ");
-        //ESCREVER PONTUAÇÃO E NOME NO ARQUIVO
-
-      game.setScreen(new Score(game,score));
+       }
+       catch (IOException e) {
+        JOptionPane.showMessageDialog(null, "O arquivo do save não foi encontrado. O jogo não será salvo.");
       }
+      game.setScreen(new Score(game, this.score));
+      
+    }
+      
+      
       else if(player.collided(asteroid)){
         game.setScreen(new MainGameScreen(game,this.life-1,this.score));
       }
       while (s.hasNext()){
         Shoot shoot = s.next();
         if (shoot.collided(asteroid)){
+          killCounter ++;
           if(asteroid.spriteHeight ==  imgPeq.getHeight()){
+            
             this.score += 160;
           }
           else if(asteroid.spriteHeight ==  imgMed.getHeight()){
@@ -178,9 +161,6 @@ public class MainGameScreen extends Game implements Screen {
           }
           s.remove();
           a.remove();
-          
-          
-
           continue;
         }
       }
