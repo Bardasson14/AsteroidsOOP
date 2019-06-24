@@ -25,6 +25,17 @@ public class Asteroids extends DynamicGameObject{
 
     public void moveAsteroid(Asteroids asteroid){
         asteroid.move_xy(asteroid.SPEED);
+        //se o sprite já saiu da tela pela direita, ele aparece do outro lado			
+		if(this.pos.x > WINDOWS_WIDTH)	this.pos.x = 0 - this.spriteWidth;
+
+		//se o sprite já saiu da tela pela esquerda, ele aparece do outro lado
+		if((this.pos.x + this.spriteWidth) < 0) this.pos.x = WINDOWS_WIDTH;
+				
+		//se o sprite já saiu da tela para cima, aparece em baixo
+		if(this.pos.y > WINDOWS_HEIGHT) this.pos.y = 0 - this.spriteHeight ;
+
+		//se o sprite já saiu da tela para baixo, aparece em cima
+		if((this.pos.y + this.spriteHeight) < 0) this.pos.y = WINDOWS_HEIGHT;
     }
 
     public static float generateAsteroids(World world, float generateTick, float generateCounter, Sprite[] spriteArray, ArrayList<Asteroids> asteroids, int WINDOWS_WIDTH, int WINDOWS_HEIGHT){

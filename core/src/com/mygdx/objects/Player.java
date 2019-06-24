@@ -99,9 +99,9 @@ public class Player extends DynamicGameObject{
 
 	@Override
 	public boolean collided(DynamicGameObject otherObject) {
-		Rectangle c = this.sprite.getBoundingRectangle();
-		Rectangle r = otherObject.sprite.getBoundingRectangle();
-		return c.overlaps(r); 
+		Circle ast = new Circle(this.pos, this.spriteWidth/2);
+		Rectangle player = otherObject.sprite.getBoundingRectangle();
+		return Intersector.overlaps(ast, player); 
 	}
 
     
