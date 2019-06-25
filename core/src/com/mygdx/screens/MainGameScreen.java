@@ -135,6 +135,12 @@ public class MainGameScreen extends Game implements Screen {
       else if(player.collided(asteroid)){
         game.setScreen(new MainGameScreen(game,this.life-1,this.score));
       }
+
+      if (asteroid.pos.x<(- asteroid.spriteWidth*2)||asteroid.pos.x>(WINDOWS_WIDTH + asteroid.spriteWidth*2)
+      ||(asteroid.pos.y<(-asteroid.spriteHeight*2))||asteroid.pos.y>(WINDOWS_HEIGHT + asteroid.spriteHeight*2)){
+        a.remove();
+        continue;
+      }
       while (s.hasNext()){
         Shoot shoot = s.next();
         if (shoot.collided(asteroid)){
