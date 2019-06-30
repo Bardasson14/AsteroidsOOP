@@ -8,12 +8,15 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Shape2D;
 import com.badlogic.gdx.math.Vector2;
 
 // Esta classe é para qualquer objeto com movimentação
-public class DynamicGameObject{
+public abstract class DynamicGameObject{
 
 	BodyDef bodydef = new BodyDef();
 	Body body;
@@ -21,6 +24,9 @@ public class DynamicGameObject{
     //Vector2 = classe de manipulação de vetores 2x2
     public Vector2 pos;     //posição
     
+    //Forma do sprite
+    public Shape2D shape;
+
     //Rotação em graus
     public float rotacao = 0;
 
@@ -74,7 +80,7 @@ public class DynamicGameObject{
         this.pos.mulAdd(speed, Gdx.graphics.getDeltaTime());
         sprite.setPosition(this.pos.x, this.pos.y);
     }
-    
+    //Rotação dos sprites
     public void rotaciona(float novaRotacao) {
     	if(novaRotacao > 360) this.rotacao -= 360;
     	if(novaRotacao < 0)	this.rotacao += 360;
@@ -82,7 +88,7 @@ public class DynamicGameObject{
     	float radianos = (this.rotacao * 2 * MathUtils.PI)/360.f;
     	dir.set(-1 * MathUtils.sin(radianos), MathUtils.cos(radianos));
     }
-    
+    //Função para aceleração dos objetos
     public void accelerate(Vector2 speed, Vector2 acceleration, float MAX_SPEED) {
     	speed.x += this.dir.x * acceleration.x  * Gdx.graphics.getDeltaTime();
         speed.y += this.dir.y * acceleration.y  * Gdx.graphics.getDeltaTime();
@@ -93,16 +99,22 @@ public class DynamicGameObject{
     }
     
     //A nave perde velocidade quando não está acelerando
-    public void looseSpeed(Vector2 speed, Vector2 acceleration) {
-    	if(speed.x > acceleration.x)	speed.x -= this.dir.x * acceleration.x;
-    	if(speed.x > acceleration.x)	speed.y -= this.dir.y * acceleration.y;
+    public void looseSpeed(Vector2 speed, Vector2 not_acceleration) {
+        if(speed.x>0){
+            speed.x = speed.x - not_acceleration.x;
+        }
+        if(speed.y>0){
+            speed.y = speed.y - not_acceleration.y;
+        }
+        if(speed.y<0){
+            speed.y = speed.y + not_acceleration.y;
+        }
+        if(speed.x<0){
+            speed.x = speed.x + not_acceleration.x;
+        }
     }
     
-    public boolean collided(DynamicGameObject otherObject) {
-    	Rectangle rectangle1 = this.sprite.getBoundingRectangle();
-    	Rectangle rectangle2 = otherObject.sprite.getBoundingRectangle();
-       	return rectangle1.overlaps(rectangle2);
-    	
-    }
-
+    
+    public abstract boolean collided(DynamicGameObject otherObject);
+    
 }
