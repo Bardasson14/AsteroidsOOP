@@ -10,6 +10,7 @@ import com.badlogic.gdx.Game;
 //import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -98,7 +99,20 @@ public class MainGameScreen extends Game implements Screen {
     player.move();
 
     // Spawn de asteroids
-    generateTick = Asteroids.generateAsteroids(world, generateTick, generateCounter, spriteArray, asteroids, 1200, 600);
+    Thread t = new Thread() {
+      public void run() {
+        generateTick = Asteroids.generateAsteroids(world, generateTick, generateCounter, spriteArray, asteroids, 1200,
+            600);
+      }
+    };
+
+    t.start();
+    try {
+      t.join();
+    } catch (InterruptedException e1) {
+      // TODO Auto-generated catch block
+      e1.printStackTrace();
+    }
     generateTick += Gdx.graphics.getDeltaTime();
 
     // Delay do tiro do jogador
@@ -115,7 +129,7 @@ public class MainGameScreen extends Game implements Screen {
     // Verificação para ver se o jogador atirou
     player.player_shoot(player);
     Iterator<Asteroids> a = asteroids.iterator();
-    System.out.println(this.score);
+    //System.out.println(this.score);
     while (a.hasNext()) {
       Asteroids asteroid = a.next();
       Iterator<Shoot> s = player.shoots.iterator();
