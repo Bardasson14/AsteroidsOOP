@@ -30,8 +30,6 @@ public class Player extends DynamicGameObject {
 	Vector2 NOT_ACCELERATION = new Vector2(1, 1);
 	public int score = 0;
 
-	public List<Shoot> shoots = new ArrayList<Shoot>();
-
 	// CONSTRUTOR DA CLASSE
 	public Player(Vector2 pos, World world, Sprite sprite) {
 		super(pos, world, sprite);
@@ -91,11 +89,11 @@ public class Player extends DynamicGameObject {
 			// if (shoot.rotacao >= 0 && shoot.rotacao<=180) dir_x = -1;
 			// if (shoot.rotacao >= 90 && shoot.rotacao<=270) dir_y = -1;
 			// System.out.println("dir_x = ", dir;
-			shoot.speed_x *= dir_x;
-			shoot.speed_y *= dir_y;
+			shoot.SPEED.x *= dir_x;
+			shoot.SPEED.y *= dir_y;
 			float radianos = (shoot.rotacao * 2 * MathUtils.PI) / 360.f;
-			shoot.SPEED = new Vector2(-shoot.speed_x * MathUtils.sin(radianos),
-					-shoot.speed_y * MathUtils.cos(radianos) * -1);
+			shoot.SPEED = new Vector2(-shoot.SPEED.x * MathUtils.sin(radianos),
+					-shoot.SPEED.y * MathUtils.cos(radianos) * -1);
 			// System.out.println(shoot.speed_x*MathUtils.sin(radianos));
 
 			// player.shoots.add(shoot);

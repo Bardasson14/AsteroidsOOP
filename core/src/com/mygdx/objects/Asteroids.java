@@ -53,8 +53,8 @@ public class Asteroids extends DynamicGameObject {
             int dir_y = 1;
             if (y > (WINDOWS_HEIGHT / 2))
                 dir_y = -1;
-            int random_speed_x = 60 + r.nextInt(30);
-            int random_speed_y = r.nextInt(80);
+            int random_speed_x = 100 + r.nextInt(30);
+            int random_speed_y = r.nextInt(100);
             int random_x = r.nextInt(2);
             int dir_x = 1;
             float x;

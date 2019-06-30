@@ -31,7 +31,3 @@ public class AsteroidsGame extends Game {
 	}
 
 }
-
-
-
-
