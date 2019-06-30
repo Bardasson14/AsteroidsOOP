@@ -3,7 +3,6 @@ package com.mygdx.screens;
 //import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -17,6 +16,8 @@ import com.mygdx.objects.Shoot;
 import com.mygdx.asteroids.AsteroidsGame;
 
 public class MainGameScreen implements Screen {
+
+  //private static final String IMGS_AST30X30_PNG = "imgs/ast30X30.png";
 
   // Declarei uma instância da classe principal
   AsteroidsGame game;
