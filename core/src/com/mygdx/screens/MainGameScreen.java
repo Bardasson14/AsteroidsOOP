@@ -19,6 +19,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.objects.Asteroids;
+import com.mygdx.objects.DynamicGameObject;
 import com.mygdx.objects.Player;
 import com.mygdx.objects.Shoot;
 import com.mygdx.asteroids.AsteroidsGame;
@@ -67,6 +68,7 @@ public class MainGameScreen extends Game implements Screen {
   // Lista de asteróides
   ArrayList<Asteroids> asteroids = new ArrayList<Asteroids>();
   ArrayList<Asteroids> ast = new ArrayList<Asteroids>();
+  ArrayList<DynamicGameObject> objetos = new ArrayList<DynamicGameObject>();
   // Chave: número de tiros que o asteroide pode sofrer
   // Player player2 = new Player(500, 300, world, sprite);
 
@@ -78,6 +80,9 @@ public class MainGameScreen extends Game implements Screen {
     this.game = game;
     this.life = life;
     this.score = score;
+
+    objetos.add(player);
+
   }
 
   @Override
@@ -95,8 +100,6 @@ public class MainGameScreen extends Game implements Screen {
     if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
       game.setScreen(new Menu(game));
     }
-    // Movimentação do jogador
-    player.move();
 
     // Spawn de asteroids
     Thread t = new Thread() {
@@ -118,21 +121,29 @@ public class MainGameScreen extends Game implements Screen {
     // Delay do tiro do jogador
     player.shoot_tick += Gdx.graphics.getDeltaTime();
 
-    // Movimenta os tiros
-    for (Shoot shoot : player.shoots)
-      shoot.move(shoot);
+    // Movimenta os tiros e o player
+    for (DynamicGameObject objeto : objetos)
+      objeto.move();
 
     // Movimenta os asteroids
     for (Asteroids asteroid : asteroids)
-      asteroid.move_xy(asteroid.SPEED);
+      asteroid.move();
 
     // Verificação para ver se o jogador atirou
-    player.player_shoot(player);
+    Shoot atirou = player.player_shoot(player);
+
+    if (atirou != null) {
+      objetos.add(atirou);
+      System.out.println("FOI");
+    }
+
     Iterator<Asteroids> a = asteroids.iterator();
     //System.out.println(this.score);
     while (a.hasNext()) {
       Asteroids asteroid = a.next();
-      Iterator<Shoot> s = player.shoots.iterator();
+      // Iterator<Shoot> s = player.shoots.iterator();
+      Iterator<DynamicGameObject> obj = objetos.iterator();
+      Player player = (Player) obj.next();
       if ((player.collided(asteroid)) && (this.life == 0)) {
         try {
           History.salvaJogo(this.score, game, new Menu(game), this.killCounter);
@@ -153,8 +164,8 @@ public class MainGameScreen extends Game implements Screen {
         a.remove();
         continue;
       }
-      while (s.hasNext()) {
-        Shoot shoot = s.next();
+      while (obj.hasNext()) {
+        Shoot shoot = (Shoot) obj.next();
         if (shoot.collided(asteroid)) {
           killCounter++;
           if (asteroid.spriteHeight == imgPeq.getHeight()) {
@@ -178,7 +189,7 @@ public class MainGameScreen extends Game implements Screen {
             ast.add(aux_ast2);
             this.score += 40;
           }
-          s.remove();
+          obj.remove();
           a.remove();
           continue;
         }
@@ -194,7 +205,7 @@ public class MainGameScreen extends Game implements Screen {
     batch.begin();
 
     // Desenha o jogador
-    player.sprite.draw(batch);
+    // player.sprite.draw(batch);
 
     score_number.draw(batch, "SCORE: " + Integer.toString(this.score), WINDOWS_WIDTH / 6,
         WINDOWS_HEIGHT - WINDOWS_HEIGHT / 20);
@@ -208,8 +219,10 @@ public class MainGameScreen extends Game implements Screen {
       asteroid.sprite.draw(batch);
 
     // Desenha os tiros do jogador
-    for (Shoot shoot : player.shoots) {
-      shoot.sprite.draw(batch);
+    for (DynamicGameObject objeto : objetos) {
+
+      objeto.sprite.draw(batch);
+
     }
 
     for (Asteroids asteroid : asteroids) {
