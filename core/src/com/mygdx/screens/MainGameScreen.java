@@ -22,7 +22,7 @@ import com.mygdx.objects.Asteroids;
 import com.mygdx.objects.DynamicGameObject;
 import com.mygdx.objects.Player;
 import com.mygdx.objects.Shoot;
-import com.mygdx.Desenha;
+import com.mygdx.Move;
 import com.mygdx.asteroids.AsteroidsGame;
 
 public class MainGameScreen extends Game implements Screen {
@@ -76,7 +76,6 @@ public class MainGameScreen extends Game implements Screen {
   // Tamanho da janela
   // Desenha thread = new Desenha(asteroids, objetos);
 
-  Thread t;
 
   // CONSTRUTOR DA CLASSE
   public MainGameScreen(AsteroidsGame game, int life, int score) {
@@ -90,26 +89,17 @@ public class MainGameScreen extends Game implements Screen {
     // thread.start();
 
      // Spawn de asteroids
-    t = new Thread() {
-      public void run() {
-        generateTick = Asteroids.generateAsteroids(world, generateTick, generateCounter, spriteArray, asteroids, 1200,
-            600);
+     System.out.println("Criou");
+     Thread t = new Thread(new Move(asteroids, objetos, world, generateTick, generateCounter, spriteArray, 1200,
+             600));
+       
+     try {
+       t.start();
+     } catch (RuntimeException e1) {
+       e1.printStackTrace();
+     }
+ 
 
-        // Movimenta os tiros e o player
-        for (DynamicGameObject objeto : objetos)
-          objeto.move();
-
-        // Movimenta os asteroids
-        for (Asteroids asteroid : asteroids)
-          asteroid.move();
-      }
-    };
-    
-    try {
-      t.start();
-    } catch (RuntimeException e1) {
-      e1.printStackTrace();
-    }
 
   }
 
