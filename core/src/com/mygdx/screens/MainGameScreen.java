@@ -76,6 +76,8 @@ public class MainGameScreen extends Game implements Screen {
   // Tamanho da janela
   // Desenha thread = new Desenha(asteroids, objetos);
 
+  Thread t;
+
   // CONSTRUTOR DA CLASSE
   public MainGameScreen(AsteroidsGame game, int life, int score) {
 
@@ -86,6 +88,28 @@ public class MainGameScreen extends Game implements Screen {
     objetos.add(player);
     // thread.run();
     // thread.start();
+
+     // Spawn de asteroids
+    t = new Thread() {
+      public void run() {
+        generateTick = Asteroids.generateAsteroids(world, generateTick, generateCounter, spriteArray, asteroids, 1200,
+            600);
+
+        // Movimenta os tiros e o player
+        for (DynamicGameObject objeto : objetos)
+          objeto.move();
+
+        // Movimenta os asteroids
+        for (Asteroids asteroid : asteroids)
+          asteroid.move();
+      }
+    };
+    
+    try {
+      t.start();
+    } catch (RuntimeException e1) {
+      e1.printStackTrace();
+    }
 
   }
 
@@ -105,20 +129,7 @@ public class MainGameScreen extends Game implements Screen {
       game.setScreen(new Menu(game));
     }
 
-    // Spawn de asteroids
-    Thread t = new Thread() {
-      public void run() {
-        generateTick = Asteroids.generateAsteroids(world, generateTick, generateCounter, spriteArray, asteroids, 1200,
-            600);
-      }
-    };
 
-    t.start();
-    try {
-      t.join();
-    } catch (InterruptedException e1) {
-      e1.printStackTrace();
-    }
     generateTick += Gdx.graphics.getDeltaTime();
 
     // Delay do tiro do jogador
@@ -132,13 +143,6 @@ public class MainGameScreen extends Game implements Screen {
       System.out.println("FOI");
     }
 
-    // Movimenta os tiros e o player
-    for (DynamicGameObject objeto : objetos)
-      objeto.move();
-
-    // Movimenta os asteroids
-    for (Asteroids asteroid : asteroids)
-      asteroid.move();
 
     Iterator<Asteroids> a = asteroids.iterator();
     // System.out.println(this.score);
