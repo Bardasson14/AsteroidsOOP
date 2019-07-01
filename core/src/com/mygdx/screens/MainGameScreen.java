@@ -76,6 +76,7 @@ public class MainGameScreen extends Game implements Screen {
   // Tamanho da janela
   // Desenha thread = new Desenha(asteroids, objetos);
 
+  Thread t;
 
   // CONSTRUTOR DA CLASSE
   public MainGameScreen(AsteroidsGame game, int life, int score) {
@@ -90,7 +91,7 @@ public class MainGameScreen extends Game implements Screen {
 
      // Spawn de asteroids
      System.out.println("Criou");
-     Thread t = new Thread(new Move(asteroids, objetos, world, generateTick, generateCounter, spriteArray, 1200,
+     t = new Thread(new Move(asteroids, objetos, world, generateTick, generateCounter, spriteArray, 1200,
              600));
        
      try {
@@ -118,7 +119,6 @@ public class MainGameScreen extends Game implements Screen {
     if (Gdx.input.isKeyPressed(Keys.ESCAPE)) {
       game.setScreen(new Menu(game));
     }
-
 
     generateTick += Gdx.graphics.getDeltaTime();
 
