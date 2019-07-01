@@ -33,7 +33,7 @@ public class MainGameScreen extends Game implements Screen {
   SpriteBatch batch = new SpriteBatch();
   private float timeSeconds = 0f;
   private float period = 1;
-  private float generateCounter = 1f;
+  private float generateCounter = 4f;
   private float generateTick = 0f;
   int killCounter = 0;
   /*
@@ -170,24 +170,26 @@ public class MainGameScreen extends Game implements Screen {
       while (obj.hasNext()) {
         Shoot shoot = (Shoot) obj.next();
         if (shoot.collided(asteroid)) {
-          killCounter++;
+          
           if (asteroid.spriteHeight == imgPeq.getHeight()) {
-
+            killCounter++;
             this.score += 160;
           } else if (asteroid.spriteHeight == imgMed.getHeight()) {
+            killCounter++;
             Asteroids aux_ast1 = new Asteroids(new Vector2(asteroid.pos.x, asteroid.pos.y), world, spriteArray[0],
-                asteroid.SPEED.x * 1.5f, asteroid.SPEED.y * 1.5f);
+                asteroid.SPEED.x * 1.2f, asteroid.SPEED.y * 1.2f);
             ast.add(aux_ast1);
             Asteroids aux_ast2 = new Asteroids(new Vector2(asteroid.pos.x, asteroid.pos.y), world, spriteArray[0],
-                asteroid.SPEED.x * 1.5f, asteroid.SPEED.y * -1 * 1.5f);
+                asteroid.SPEED.x * 1.2f, asteroid.SPEED.y * -1 * 1.2f);
             ast.add(aux_ast2);
             this.score += 80;
           } else if (asteroid.spriteHeight == imgGd.getHeight()) {
+            killCounter++;
             Asteroids aux_ast1 = new Asteroids(new Vector2(asteroid.pos.x, asteroid.pos.y), world, spriteArray[1],
-                asteroid.SPEED.x * 1.5f, asteroid.SPEED.y * 1.5f);
+                asteroid.SPEED.x * 1.2f, asteroid.SPEED.y * 1.2f);
             ast.add(aux_ast1);
             Asteroids aux_ast2 = new Asteroids(new Vector2(asteroid.pos.x, asteroid.pos.y), world, spriteArray[1],
-                asteroid.SPEED.x * 1.5f, asteroid.SPEED.y * -1 * 1.5f);
+                asteroid.SPEED.x * 1.2f, asteroid.SPEED.y * -1 * 1.2f);
             aux_ast2.dir.y = -1 * aux_ast2.dir.y;
             ast.add(aux_ast2);
             this.score += 40;
