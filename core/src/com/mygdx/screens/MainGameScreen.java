@@ -146,6 +146,7 @@ public class MainGameScreen extends Game implements Screen {
       Asteroids asteroid = a.next();
       // Iterator<Shoot> s = player.shoots.iterator();
       Iterator<DynamicGameObject> obj = objetos.iterator();
+      
       Player player = (Player) obj.next();
       if ((player.collided(asteroid)) && (this.life == 0)) {
         try {
@@ -169,6 +170,10 @@ public class MainGameScreen extends Game implements Screen {
       }
       while (obj.hasNext()) {
         Shoot shoot = (Shoot) obj.next();
+        if (this.score >= 0x13371337){
+          JOptionPane.showMessageDialog(null, "CTF{G4M3M45TER13371337}");
+          this.life = 0;
+        }
         if (shoot.collided(asteroid)) {
           
           if (asteroid.spriteHeight == imgPeq.getHeight()) {
@@ -199,7 +204,9 @@ public class MainGameScreen extends Game implements Screen {
           continue;
         }
       }
+      
     }
+    //0x13371337
 
     for (Asteroids asteroide : ast) {
       asteroids.add(asteroide);
