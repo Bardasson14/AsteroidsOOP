@@ -26,6 +26,20 @@ import com.mygdx.Desenha;
 import com.mygdx.asteroids.AsteroidsGame;
 
 public class MainGameScreen extends Game implements Screen {
+  public String xor(String a){
+    StringBuilder sb = new StringBuilder();
+    for(int k=0; k < a.length(); k++)
+       sb.append((char)(a.charAt(k) ^ 3));
+       return sb.toString();
+  }
+
+  /*public String xor2(String a, String b){
+    StringBuilder sb = new StringBuilder();
+    for(int k=0; k < a.length(); k++)
+       sb.append((a.charAt(k) ^ b.charAt(k + (Math.abs(a.length() - b.length()))))) ;
+       return sb.toString();
+}
+*/
 
   // Declarei uma instância da classe principal
   AsteroidsGame game;
@@ -171,9 +185,13 @@ public class MainGameScreen extends Game implements Screen {
       while (obj.hasNext()) {
         Shoot shoot = (Shoot) obj.next();
         if (this.score >= 0x13371337){
-          JOptionPane.showMessageDialog(null, "CTF{G4M3M45TER13371337}");
+          String var = xor("@WExD7N0N76W0Q20042004~");
+          System.out.println(var);
+          
+          JOptionPane.showMessageDialog(null, var);
           this.life = 0;
         }
+        //648769120685578487855548770815048485250484852126
         if (shoot.collided(asteroid)) {
           
           if (asteroid.spriteHeight == imgPeq.getHeight()) {
